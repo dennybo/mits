@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+  {{ user.username }}
+{% endblock %}
+
+
+{% block content %}
+  <h1 class="page-header">
+    <div class="pull-right">
+      <a href="{% url 'projects:project_create' %}" class="btn btn-success">Create Project</a>
+    </div>
+
+    Projects
+  </h1>
+
+  {% for project in project_list %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div>
+          <strong><a href="{{ project.get_absolute_url }}" class="text-uppercase">{{ project.name }}</a></strong>
+        </div>
+
+        {{ project.description }}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+  <h1 class="page-header">Create {% block title_name %}{% endblock %}</h1>
+
+  <div class="panel panel-default">
+    <form action="" method="post" enctype="multipart/form-data">
+      <div class="panel-body">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+      </div>
+
+      <div class="panel-footer">
+        {% if object %}
+          <a href="{{ object.get_delete_url }}" class="btn btn-danger">Delete</a>
+        {% endif %}
+
+        <button type="submit" class="btn btn-success pull-right">Save</button>
+        <div class="clearfix"></div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
