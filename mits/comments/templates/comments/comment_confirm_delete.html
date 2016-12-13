@@ -1,0 +1,10 @@
+{% extends 'confirm_delete.html' %}
+
+{% block object_name %}
+  {{ comment.text }} on issue #{{ comment.issue.index }}
+{% endblock %}
+
+
+{% block absolute_url %}
+  {{ comment.issue.get_absolute_url }}
+{% endblock %}

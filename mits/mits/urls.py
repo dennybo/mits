@@ -5,5 +5,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^issues/', include('issues.urls', namespace='issues')),
+    url(r'^comments/', include('comments.urls', namespace='comments')),
     url(r'^', include('projects.urls', namespace='projects')),
 ]

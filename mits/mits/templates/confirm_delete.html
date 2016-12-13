@@ -20,7 +20,7 @@
             You are about to delete:
 
             <p>
-              <a href="{{ object.get_absolute_url }}">
+              <a href="{% block absolute_url %}{{ object.get_absolute_url }}{% endblock absolute_url %}">
                 {% block object_name %}
                   {{ object }}
                 {% endblock %}

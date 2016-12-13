@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap3 %}
 
 
 {% block title %}
@@ -6,40 +7,125 @@
 {% endblock %}
 
 
-{% block content %}
-  <div class="row">
-    <div class="col-sm-12">
-      <a href="{{ issue.project.get_absolute_url }}" class="no-underline">
-        <h4 class="header-collapse text-muted text-uppercase">
-          <span class="glyphicon glyphicon-arrow-left step"></span> {{ issue.project }}</h4>
-      </a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="pull-right">
-        {% if issue.owner == user %}
-          <a href="{{ issue.get_update_url }}" class="btn btn-primary">
-            <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-        {% endif %}
+{% block container %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <a href="{{ issue.project.get_absolute_url }}" class="no-underline">
+          <h4 class="header-collapse text-muted text-uppercase">
+            <span class="glyphicon glyphicon-arrow-left step"></span> {{ issue.project }}</h4>
+        </a>
       </div>
-
-      <h1 class="page-header">{{ issue.name }} <small>#{{ issue.index }}</small></h1>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          {{ issue.description|linebreaksbr }}
+  <div class="container container-collapse">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pull-right">
+          {% if issue.owner == user %}
+            <a href="{{ issue.get_update_url }}" class="btn btn-primary">
+              <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+          {% endif %}
         </div>
 
-        <div class="panel-footer">
-          <strong>{{ issue.owner.username }}</strong>
-          issued in
-          <i>{{ issue.create_date }}</i>
+        <h1 class="header-collapse">{{ issue.name }}
+          <small>#{{ issue.index }}</small>
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="middle-container">
+    <div class="container container-collapse">
+      <div class="row">
+        <div class="col-sm-12">
+          <span class="label label-primary">feature</span>
+        </div>
+      </div>
+
+      <div class="row row-vspace">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              {{ issue.description|linebreaksbr }}
+            </div>
+
+            <div class="panel-footer">
+              <strong>{{ issue.owner.username }}</strong>,
+              issued in
+              <i>{{ issue.create_date }}</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container container-collapse">
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Comments</h3>
+
+        {% if issue.comment_set.count == 0 %}
+          <div class="alert alert-info">
+            No comments so far...
+          </div>
+        {% endif %}
+
+        {% for comment in issue.comment_set.all %}
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="pull-right">
+                {% if comment.owner == user %}
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                      Options <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="{{ comment.get_update_url }}">Edit</a></li>
+                      <li><a href="{{ comment.get_delete_url }}">Delete</a></li>
+                    </ul>
+                  </div>
+                {% endif %}
+              </div>
+
+              <strong>{{ issue.owner.username }}</strong>,
+              commented on
+              <i>{{ issue.create_date }}</i>
+            </div>
+
+            <div class="panel-body">
+              {{ comment.text|linebreaksbr }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Post a comment
+          </div>
+
+          <form action="{% url 'comments:comment_create' issue.pk %}" method="post">
+            {% csrf_token %}
+
+            <div class="panel-body">
+          <textarea name="text" class="form-control" rows="7"
+                    placeholder="Type your comment here..."></textarea>
+            </div>
+
+            <div class="panel-footer">
+              <button type="submit" class="btn btn-success pull-right">Post Comment</button>
+
+              <div class="clearfix"></div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

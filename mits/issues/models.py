@@ -5,9 +5,9 @@ from django.urls import reverse
 class Issue(models.Model):
     project = models.ForeignKey('projects.Project')
 
-    name = models.CharField(max_length=256)
-
     owner = models.ForeignKey('auth.User')
+
+    name = models.CharField(max_length=256)
 
     create_date = models.DateTimeField(auto_now_add=True)
 

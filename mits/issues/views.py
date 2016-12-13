@@ -3,10 +3,16 @@ from django.views import generic
 from models import *
 from forms import *
 from projects import mixins
+from comments.forms import CommentForm
 
 
 class IssueDetailView(generic.DetailView):
     model = Issue
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueDetailView, self).get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
 
 
 class IssueCreateView(mixins.ProjectMixin, generic.CreateView):

@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'projects',
     'issues',
+    'comments',
 ]
 
 MIDDLEWARE = [
