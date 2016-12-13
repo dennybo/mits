@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+  {{ issue.name }}
+{% endblock %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="{{ issue.project.get_absolute_url }}" class="no-underline">
+        <h4 class="header-collapse text-muted text-uppercase">
+          <span class="glyphicon glyphicon-arrow-left step"></span> {{ issue.project }}</h4>
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="pull-right">
+        {% if issue.owner == user %}
+          <a href="{{ issue.get_update_url }}" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+        {% endif %}
+      </div>
+
+      <h1 class="page-header">{{ issue.name }} <small>#{{ issue.index }}</small></h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{ issue.description|linebreaksbr }}
+        </div>
+
+        <div class="panel-footer">
+          <strong>{{ issue.owner.username }}</strong>
+          issued in
+          <i>{{ issue.create_date }}</i>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

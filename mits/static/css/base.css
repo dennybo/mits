@@ -11,3 +11,36 @@
 .row-vspace {
   margin-top: 8px;
 }
+
+.header-collapse {
+  padding: 0;
+  margin: 0;
+}
+
+.step {
+  padding-right: 8px;
+}
+.back-step {
+  padding-left: 8px;
+}
+
+.container-collapse {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.middle-container {
+  margin-top: 8px;
+  background-color: #f9f9f9;
+  padding-top: 16px;
+  border-bottom: 1px #e7e7e7 solid;
+  border-top: 1px #e7e7e7 solid;
+}
+
+.nav-tabs {
+  border-bottom: 0;
+}
+
+.no-underline:hover {
+  text-decoration: none;
+}

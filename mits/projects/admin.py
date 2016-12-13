@@ -6,5 +6,9 @@ class MembershipAdmin(admin.ModelAdmin):
     list_display = ['user', 'project', 'is_administrator']
 
 
-admin.site.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ['name', 'issue_index']
+
+
+admin.site.register(Project, ProjectAdmin)
 admin.site.register(Membership, MembershipAdmin)
