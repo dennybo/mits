@@ -1,0 +1,5 @@
+{% extends 'confirm_delete.html' %}
+
+{% block back_page %}
+  {% url 'tags:tag_list' tag.project.pk %}
+{% endblock %}

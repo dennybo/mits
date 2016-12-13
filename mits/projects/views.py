@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 from models import *
@@ -11,14 +12,11 @@ class ProjectListView(generic.ListView):
         return Project.objects.filter(membership__user=self.request.user)
 
 
-class ProjectDetailView(generic.DetailView):
-    model = Project
-
-    def get_context_data(self, **kwargs):
-        context = super(ProjectDetailView, self).get_context_data(**kwargs)
-        context['membership'] = Membership.objects.get(project=self.object,
-                                                       user=self.request.user)
-        return context
+class ProjectDetailView(generic.RedirectView):
+    # TODO: this should offer and overview of the project.
+    def get_redirect_url(self, *args, **kwargs):
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        return reverse('issues:issue_list', args=[project.pk])
 
 
 class ProjectCreateView(generic.CreateView):

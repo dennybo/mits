@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+  {{ project.name }}
+{% endblock %}
+
+
+{% block container %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <a href="{% url 'projects:project_list' %}" class="no-underline">
+          <h4 class="header-collapse text-muted text-uppercase">
+            <span class="glyphicon glyphicon-arrow-left step"></span> Projects</h4>
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pull-right">
+          {% if membership.is_administrator %}
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false">
+                Options <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="#">Members</a></li>
+                <li><a href="{{ project.get_update_url }}">Edit</a></li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+
+        <h1 class="header-collapse">
+          {{ project.name }}
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="middle-container">
+    <div class="container container-collapse">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="pull-right">
+            {% block action_button %}{% endblock %}
+          </div>
+
+          <ul class="nav nav-tabs">
+            <li role="presentation" {% if active == 'issues' %}class="active"{% endif %}><a href="{% url 'issues:issue_list' project.pk %}">Issues</a></li>
+            <li role="presentation" {% if active == 'tags' %}class="active"{% endif %}><a href="{% url 'tags:tag_list' project.pk %}">Tags</a></li>
+            <li role="presentation" {% if active == 'milestones' %}class="active"{% endif %}><a href="#">Milestones</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container container-collapse">
+  {% block content %}{% endblock %}
+  </div>
+{% endblock %}

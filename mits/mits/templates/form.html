@@ -21,9 +21,11 @@
       </div>
 
       <div class="panel-footer">
-        {% if object %}
-          <a href="{{ object.get_delete_url }}" class="btn btn-danger">Delete</a>
-        {% endif %}
+        {% block delete %}
+          {% if object.get_delete_url %}
+            <a href="{{ object.get_delete_url }}" class="btn btn-danger">Delete</a>
+          {% endif %}
+        {% endblock %}
 
         <button type="submit" class="btn btn-success pull-right">Save</button>
         <div class="clearfix"></div>

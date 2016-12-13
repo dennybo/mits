@@ -1,0 +1,50 @@
+{% extends 'projects/project_base.html' %}
+
+
+{% block title %}
+  {{ project.name }}
+{% endblock %}
+
+
+{% block content %}
+  <div class="row row-vspace">
+    <div class="col-sm-12">
+      {% if project.issue_set.count == 0 %}
+        <div class="jumbotron text-center">
+          <h1>No issues!</h1>
+          <p>Your project is empty, maybe you would want to add an issue?</p>
+          <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span> New Issue</a>
+        </div>
+      {% else %}
+        <div class="list-group">
+          {% for issue in project.issue_set.all %}
+            <a href="{{ issue.get_absolute_url }}" class="list-group-item">
+              <div class="pull-right text-muted text-uppercase">
+                <small>
+                  {{ issue.owner.username }}
+                  <span class="glyphicon glyphicon-eye-open back-step"></span>
+                </small>
+              </div>
+
+              <div>
+                <span class="text-primary">{{ issue.name }}</span>
+                <span class="text-muted">#{{ issue.index }}</span>
+              </div>
+
+              <div>
+                {{ issue.create_date }}
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block action_button %}
+  <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus"></span> New Issue</a>
+{% endblock %}

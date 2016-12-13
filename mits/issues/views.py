@@ -6,6 +6,16 @@ from projects import mixins
 from comments.forms import CommentForm
 
 
+class IssueListView(mixins.ProjectMixin, generic.ListView):
+    model = Issue
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueListView, self).get_context_data(**kwargs)
+        context['active'] = 'issues'
+        context['project'] = self.get_project()
+        return context
+
+
 class IssueDetailView(generic.DetailView):
     model = Issue
 

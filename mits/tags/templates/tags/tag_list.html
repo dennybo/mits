@@ -1,0 +1,35 @@
+{% extends 'projects/project_base.html' %}
+
+{% block action_button %}
+  <a href="{% url 'tags:tag_create' project.pk %}" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus"></span> New Tag</a>
+{% endblock %}
+
+
+{% block content %}
+  <div class="row row-vspace">
+    <div class="col-sm-12">
+      {% if tag_list.count == 0 %}
+        <div class="jumbotron text-center">
+          <h1>No tags</h1>
+          <p>Start creating tags to categorize your issues!</p>
+          <a href="{% url 'tags:tag_create' project.pk %}" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span> New Tag</a>
+        </div>
+      {% endif %}
+
+      <ul class="list-group">
+        {% for tag in tag_list %}
+          <li class="list-group-item">
+            <div class="pull-right">
+              <a href="{{ tag.get_update_url }}"><span class="glyphicon glyphicon-pencil"></span></a>
+            </div>
+
+            <span class="glyphicon glyphicon-tag step" style="color: {{ tag.color }};"></span>
+            <strong>{{ tag.name }}</strong>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

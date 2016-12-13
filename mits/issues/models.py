@@ -19,10 +19,10 @@ class Issue(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('issues:issue_detail', args=[self.pk])
+        return reverse('issues:issue_detail', args=[self.project.pk, self.pk])
 
     def get_update_url(self):
-        return reverse('issues:issue_update', args=[self.pk])
+        return reverse('issues:issue_update', args=[self.project.pk, self.pk])
 
     class Meta:
         ordering = ['-index']

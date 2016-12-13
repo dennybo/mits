@@ -3,13 +3,19 @@ import views
 
 urlpatterns = [
     url(
+        r'^$',
+        views.IssueListView.as_view(),
+        name='issue_list'
+    ),
+
+    url(
         r'^(?P<pk>\d+)/$',
         views.IssueDetailView.as_view(),
         name='issue_detail'
     ),
 
     url(
-        r'^(?P<project_pk>\d+)/create/$',
+        r'^create/$',
         views.IssueCreateView.as_view(),
         name='issue_create'
     ),

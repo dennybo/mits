@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'projects',
     'issues',
     'comments',
+    'tags',
 ]
 
 MIDDLEWARE = [

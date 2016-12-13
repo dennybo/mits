@@ -16,7 +16,7 @@ class CommentCreateView(mixins.IssueMixin, generic.CreateView):
         return super(CommentCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('issues:issue_detail', args=[self.get_issue().pk])
+        return reverse('issues:issue_detail', args=[self.get_issue().project.pk, self.get_issue().pk])
 
 
 class CommentUpdateView(mixins.IssueMixin, generic.UpdateView):
@@ -24,11 +24,11 @@ class CommentUpdateView(mixins.IssueMixin, generic.UpdateView):
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse('issues:issue_detail', args=[self.get_issue().pk])
+        return reverse('issues:issue_detail', args=[self.get_issue().project.pk, self.get_issue().pk])
 
 
 class CommentDeleteView(mixins.IssueMixin, generic.DeleteView):
     model = Comment
 
     def get_success_url(self):
-        return reverse('issues:issue_detail', args=[self.get_issue().pk])
+        return reverse('issues:issue_detail', args=[self.get_issue().project.pk, self.get_issue().pk])
