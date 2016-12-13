@@ -25,4 +25,10 @@ urlpatterns = [
         views.ProjectUpdateView.as_view(),
         name='project_update'
     ),
+
+    url(
+        r'^delete/(?P<pk>\d+)/$',
+        views.ProjectDeleteView.as_view(),
+        name='project_delete'
+    ),
 ]

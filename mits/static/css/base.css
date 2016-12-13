@@ -1,3 +1,13 @@
 .container {
+  padding-top: 36px;
   max-width: 900px;
+}
+
+.page-header {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.row-vspace {
+  margin-top: 8px;
 }

@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.views import generic
 from models import *
 from forms import *
@@ -36,3 +37,10 @@ class ProjectCreateView(generic.CreateView):
 class ProjectUpdateView(generic.UpdateView):
     model = Project
     form_class = ProjectForm
+
+
+class ProjectDeleteView(generic.DeleteView):
+    model = Project
+
+    def get_success_url(self):
+        return reverse_lazy('projects:project_list')

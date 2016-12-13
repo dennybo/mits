@@ -20,6 +20,10 @@ class Project(models.Model):
     def get_update_url(self):
         return 'projects:project_update', [self.pk]
 
+    @models.permalink
+    def get_delete_url(self):
+        return 'projects:project_delete', [self.pk]
+
 
 class Membership(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)

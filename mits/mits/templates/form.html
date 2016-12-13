@@ -3,7 +3,15 @@
 
 
 {% block content %}
-  <h1 class="page-header">Create {% block title_name %}{% endblock %}</h1>
+  <h1 class="page-header">
+    {% if object %}
+      Edit
+    {% else %}
+      Create
+    {% endif %}
+
+    {% block title_name %}{% endblock %}
+  </h1>
 
   <div class="panel panel-default">
     <form action="" method="post" enctype="multipart/form-data">

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Confirm Delete
+{% endblock %}
+
+
+{% block content %}
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          Are you sure?
+        </div>
+
+        <form action="" method="post">
+          {% csrf_token %}
+
+          <div class="panel-body">
+            You are about to delete:
+
+            <p>
+              <a href="{{ object.get_absolute_url }}">
+                {% block object_name %}
+                  {{ object }}
+                {% endblock %}
+              </a>
+            </p>
+
+            This action cannot be undone.
+          </div>
+
+          <div class="panel-footer">
+            <button type="submit" class="btn btn-danger pull-right">Yes, I'm sure</button>
+
+            <a href="{% block back_page %}{{ object.get_absolute_url }}{% endblock %}"
+               class="btn btn-default">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
