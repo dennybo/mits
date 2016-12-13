@@ -31,3 +31,8 @@ class ProjectCreateView(generic.CreateView):
         membership.save()
 
         return response
+
+
+class ProjectUpdateView(generic.UpdateView):
+    model = Project
+    form_class = ProjectForm

@@ -16,6 +16,10 @@ class Project(models.Model):
     def get_absolute_url(self):
         return 'projects:project_detail', [self.pk]
 
+    @models.permalink
+    def get_update_url(self):
+        return 'projects:project_update', [self.pk]
+
 
 class Membership(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
