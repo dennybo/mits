@@ -44,3 +44,7 @@
 .no-underline:hover {
   text-decoration: none;
 }
+
+.remove-link {
+  color: #ffffff;
+}

@@ -15,6 +15,8 @@ class Issue(models.Model):
 
     index = models.IntegerField()
 
+    tags = models.ManyToManyField('tags.Tag', blank=True)
+
     def __unicode__(self):
         return self.name
 

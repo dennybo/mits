@@ -40,7 +40,39 @@
     <div class="container container-collapse">
       <div class="row">
         <div class="col-sm-12">
-          <span class="label label-primary">feature</span>
+          <div class="pull-right">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default btn-xs" data-container="body" data-toggle="popover"
+                      data-placement="left" data-html="true" data-content="" id="tagsPopover">
+                update tags
+              </button>
+
+              <div id="tagsPopoverContent" class="hidden">
+                <form action="{% url 'issues:issue_tags_update' issue.project.pk issue.pk %}"
+                      style="min-width: 150px" method="post">
+                  {% csrf_token %}
+
+                  {% for checked, tag in tags %}
+                    <div>
+                      <input class="pull-right" name="tags" type="checkbox" {% if checked %}checked{% endif %} value="{{ tag.pk }}">
+
+                      <span class="label back-step" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+                    </div>
+                  {% endfor %}
+
+                  <button class="btn btn-xs btn-success btn-block row-vspace">Save</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          {% if issue.tags.count == 0 %}
+            <span class="label label-default">no tags</span>
+          {% endif %}
+
+          {% for tag in issue.tags.all %}
+            <span class="label" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+          {% endfor %}
         </div>
       </div>
 
@@ -130,4 +162,18 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+
+{% block script %}
+  <script>
+    $(function () {
+      $('[data-toggle="popover"]').popover();
+
+      var tagsPopoverContent = $('#tagsPopoverContent');
+
+      $('#tagsPopover').attr('data-content', tagsPopoverContent.html());
+      tagsPopoverContent.remove();
+    })
+  </script>
 {% endblock %}

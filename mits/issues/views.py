@@ -1,9 +1,13 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
+from django import views
+import services
 
 from models import *
 from forms import *
 from projects import mixins
 from comments.forms import CommentForm
+from tags.models import *
 
 
 class IssueListView(mixins.ProjectMixin, generic.ListView):
@@ -22,6 +26,7 @@ class IssueDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(IssueDetailView, self).get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
+        context['tags'] = services.pack_issue_tags(self.object)
         return context
 
 
@@ -46,3 +51,11 @@ class IssueCreateView(mixins.ProjectMixin, generic.CreateView):
 class IssueUpdateView(generic.UpdateView):
     model = Issue
     form_class = IssueForm
+
+
+class IssueTagsUpdateView(generic.UpdateView):
+    model = Issue
+    form_class = IssueTagsForm
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()

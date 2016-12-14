@@ -25,4 +25,10 @@ urlpatterns = [
         views.IssueUpdateView.as_view(),
         name='issue_update'
     ),
+
+    url(
+        r'^(?P<pk>\d+)/tags/update/$',
+        views.IssueTagsUpdateView.as_view(),
+        name='issue_tags_update'
+    ),
 ]
