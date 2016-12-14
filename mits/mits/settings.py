@@ -13,7 +13,7 @@ SECRET_KEY = '96$!38-l6jaahn-iwwwg^y=z_f)9skp301wtaopvxyuw@lj^m9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'mits.mokadevel.xyz']
 
 
 # Application definition
