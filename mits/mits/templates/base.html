@@ -27,6 +27,16 @@
   </div>
 {% endblock %}
 
+{% if user.is_authenticated %}
+  <div class="container container-collapse">
+    <div class="row">
+      <div class="col-sm-12 text-right">
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 

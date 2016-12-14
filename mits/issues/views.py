@@ -1,16 +1,12 @@
-from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
-from django import views
 import services
 
-from models import *
 from forms import *
 from projects import mixins
 from comments.forms import CommentForm
-from tags.models import *
 
 
-class IssueListView(mixins.ProjectMixin, generic.ListView):
+class IssueListView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.ListView):
     model = Issue
 
     def get_context_data(self, **kwargs):
@@ -20,7 +16,7 @@ class IssueListView(mixins.ProjectMixin, generic.ListView):
         return context
 
 
-class IssueDetailView(generic.DetailView):
+class IssueDetailView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.DetailView):
     model = Issue
 
     def get_context_data(self, **kwargs):
@@ -30,7 +26,7 @@ class IssueDetailView(generic.DetailView):
         return context
 
 
-class IssueCreateView(mixins.ProjectMixin, generic.CreateView):
+class IssueCreateView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.CreateView):
     model = Issue
     form_class = IssueForm
 
@@ -48,12 +44,12 @@ class IssueCreateView(mixins.ProjectMixin, generic.CreateView):
         return super(IssueCreateView, self).form_valid(form)
 
 
-class IssueUpdateView(generic.UpdateView):
+class IssueUpdateView(mixins.ProjectAccessCheckMixin, generic.UpdateView):
     model = Issue
     form_class = IssueForm
 
 
-class IssueTagsUpdateView(generic.UpdateView):
+class IssueTagsUpdateView(mixins.ProjectAccessCheckMixin, generic.UpdateView):
     model = Issue
     form_class = IssueTagsForm
 

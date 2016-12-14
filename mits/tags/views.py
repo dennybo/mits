@@ -3,10 +3,10 @@ from django.views import generic
 
 from models import *
 from forms import *
-from projects import mixins
+from projects.mixins import *
 
 
-class TagListView(mixins.ProjectMixin, generic.ListView):
+class TagListView(ProjectMixin, ProjectAccessCheckMixin, generic.ListView):
     model = Tag
 
     def get_queryset(self):
@@ -19,7 +19,7 @@ class TagListView(mixins.ProjectMixin, generic.ListView):
         return context
 
 
-class TagCreateView(mixins.ProjectMixin, generic.CreateView):
+class TagCreateView(ProjectMixin, ProjectAccessCheckMixin, generic.CreateView):
     model = Tag
     form_class = TagForm
 
@@ -31,7 +31,7 @@ class TagCreateView(mixins.ProjectMixin, generic.CreateView):
         return reverse('tags:tag_list', args=[self.get_project().pk])
 
 
-class TagUpdateView(mixins.ProjectMixin, generic.UpdateView):
+class TagUpdateView(ProjectMixin, ProjectAccessCheckMixin, generic.UpdateView):
     model = Tag
     form_class = TagForm
 
@@ -39,7 +39,7 @@ class TagUpdateView(mixins.ProjectMixin, generic.UpdateView):
         return reverse('tags:tag_list', args=[self.get_project().pk])
 
 
-class TagDeleteView(mixins.ProjectMixin, generic.DeleteView):
+class TagDeleteView(ProjectMixin, ProjectAccessCheckMixin, generic.DeleteView):
     model = Tag
 
     def get_success_url(self):
