@@ -5,7 +5,7 @@ from models import *
 def pack_issue_tags(issue):
     result = []
 
-    all_tags = Tag.objects.all()
+    all_tags = issue.project.tag_set.all()
     issue_tags = issue.tags.all()
 
     for tag in issue_tags:
