@@ -6,6 +6,14 @@
 {% endblock %}
 
 
+{% block action_button %}
+  <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success load-modal" title="New Issue">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span class="hidden-xs">New Issue</span>
+  </a>
+{% endblock %}
+
+
 {% block content %}
   <div class="row row-vspace">
     <div class="col-sm-12">
@@ -41,10 +49,4 @@
       {% endif %}
     </div>
   </div>
-{% endblock %}
-
-
-{% block action_button %}
-  <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success load-modal" title="New Issue">
-    <span class="glyphicon glyphicon-plus"></span> New Issue</a>
 {% endblock %}

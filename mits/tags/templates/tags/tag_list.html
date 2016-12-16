@@ -2,7 +2,9 @@
 
 {% block action_button %}
   <a href="{% url 'tags:tag_create' project.pk %}" class="btn btn-success load-modal" title="New Tag">
-    <span class="glyphicon glyphicon-plus"></span> New Tag</a>
+    <span class="glyphicon glyphicon-plus"></span>
+    <span class="hidden-xs">New Tag</span>
+  </a>
 {% endblock %}
 
 

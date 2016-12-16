@@ -50,9 +50,18 @@
           </div>
 
           <ul class="nav nav-tabs">
-            <li role="presentation" {% if active == 'issues' %}class="active"{% endif %}><a href="{% url 'issues:issue_list' project.pk %}">Issues</a></li>
-            <li role="presentation" {% if active == 'tags' %}class="active"{% endif %}><a href="{% url 'tags:tag_list' project.pk %}">Tags</a></li>
-            <li role="presentation" {% if active == 'milestones' %}class="active"{% endif %}><a href="#">Milestones</a></li>
+            <li role="presentation" {% if active == 'issues' %}class="active"{% endif %}>
+              <a href="{% url 'issues:issue_list' project.pk %}">
+                <span class="glyphicon glyphicon-record"></span>
+                <span class="hidden-xs">Issues</span></a></li>
+            <li role="presentation" {% if active == 'tags' %}class="active"{% endif %}>
+              <a href="{% url 'tags:tag_list' project.pk %}">
+                <span class="glyphicon glyphicon-tag"></span>
+                <span class="hidden-xs">Tags</span></a></li>
+            <li role="presentation" {% if active == 'milestones' %}class="active"{% endif %}>
+              <a href="#">
+                <span class="glyphicon glyphicon-star-empty"></span>
+                <span class="hidden-xs">Milestones</span></a></li>
           </ul>
         </div>
       </div>

@@ -1,4 +1,9 @@
 $(function () {
+    /*
+     * Loads a form into a modal, the modal should be identified as #modal, and the object clicked
+     * must have the "load-modal" class, and the attributes: "href" and "title", where title is displayed
+     * in the modal title.
+     */
     $('.load-modal').click(function (e) {
         e.preventDefault();
 
