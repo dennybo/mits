@@ -24,7 +24,7 @@
       <div class="col-sm-12">
         <div class="pull-right">
           {% if issue.owner == user %}
-            <a href="{{ issue.get_update_url }}" class="btn btn-primary">
+            <a href="{{ issue.get_update_url }}" class="btn btn-primary load-modal" title="Edit Issue">
               <span class="glyphicon glyphicon-pencil"></span> Edit</a>
           {% endif %}
         </div>
@@ -117,7 +117,7 @@
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="{{ comment.get_update_url }}">Edit</a></li>
+                      <li><a href="{{ comment.get_update_url }}" class="load-modal" title="Edit Comment">Edit</a></li>
                       <li><a href="{{ comment.get_delete_url }}">Delete</a></li>
                     </ul>
                   </div>

@@ -13,7 +13,7 @@
         <div class="jumbotron text-center">
           <h1>No issues!</h1>
           <p>Your project is empty, maybe you would want to add an issue?</p>
-          <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success">
+          <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success load-modal">
             <span class="glyphicon glyphicon-plus"></span> New Issue</a>
         </div>
       {% else %}
@@ -45,6 +45,6 @@
 
 
 {% block action_button %}
-  <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success">
+  <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success load-modal" title="New Issue">
     <span class="glyphicon glyphicon-plus"></span> New Issue</a>
 {% endblock %}
