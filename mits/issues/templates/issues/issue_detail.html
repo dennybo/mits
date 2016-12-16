@@ -41,29 +41,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="pull-right">
-            <div class="btn-group">
-              <button type="button" class="btn btn-default btn-xs" data-container="body" data-toggle="popover"
-                      data-placement="left" data-html="true" data-content="" id="tagsPopover">
-                update tags
-              </button>
-
-              <div id="tagsPopoverContent" class="hidden">
-                <form action="{% url 'issues:issue_tags_update' issue.project.pk issue.pk %}"
-                      style="min-width: 150px" method="post">
-                  {% csrf_token %}
-
-                  {% for checked, tag in tags %}
-                    <div>
-                      <input class="pull-right" name="tags" type="checkbox" {% if checked %}checked{% endif %} value="{{ tag.pk }}">
-
-                      <span class="label back-step" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
-                    </div>
-                  {% endfor %}
-
-                  <button class="btn btn-xs btn-success btn-block row-vspace">Save</button>
-                </form>
-              </div>
-            </div>
+            {% include 'issues/_tags_btn.html' %}
           </div>
 
           {% if issue.tags.count == 0 %}
@@ -105,35 +83,7 @@
           </div>
         {% endif %}
 
-        {% for comment in issue.comment_set.all %}
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="pull-right">
-                {% if comment.owner == user %}
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                      Options <span class="caret"></span>
-                    </button>
-
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li><a href="{{ comment.get_update_url }}" class="load-modal" title="Edit Comment">Edit</a></li>
-                      <li><a href="{{ comment.get_delete_url }}">Delete</a></li>
-                    </ul>
-                  </div>
-                {% endif %}
-              </div>
-
-              <strong>{{ issue.owner.username }}</strong>,
-              commented on
-              <i>{{ issue.create_date }}</i>
-            </div>
-
-            <div class="panel-body">
-              {{ comment.text|linebreaksbr }}
-            </div>
-          </div>
-        {% endfor %}
+        {% include 'issues/_comments.html' %}
       </div>
     </div>
 

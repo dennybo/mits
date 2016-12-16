@@ -10,9 +10,13 @@ class IssueListView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic
     model = Issue
 
     def get_context_data(self, **kwargs):
+        project = self.get_project()
+
         context = super(IssueListView, self).get_context_data(**kwargs)
         context['active'] = 'issues'
-        context['project'] = self.get_project()
+        context['project'] = project
+        context['membership'] = project.get_membership(self.request.user)
+
         return context
 
 

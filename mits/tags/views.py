@@ -13,9 +13,13 @@ class TagListView(ProjectMixin, ProjectAccessCheckMixin, generic.ListView):
         return self.get_project().tag_set.all()
 
     def get_context_data(self, **kwargs):
+        project = self.get_project()
+
         context = super(TagListView, self).get_context_data(**kwargs)
         context['active'] = 'tags'
-        context['project'] = self.get_project()
+        context['project'] = project
+        context['membership'] = project.get_membership(self.request.user)
+
         return context
 
 

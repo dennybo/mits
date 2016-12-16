@@ -1,0 +1,28 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-default btn-xs" data-container="body" data-toggle="popover"
+          data-placement="left" data-html="true" data-content="" id="tagsPopover">
+    update tags
+  </button>
+
+  <div id="tagsPopoverContent" class="hidden">
+    {% if tags|length == 0 %}
+      No tags to display
+    {% else %}
+      <form action="{% url 'issues:issue_tags_update' issue.project.pk issue.pk %}"
+            style="min-width: 150px" method="post">
+        {% csrf_token %}
+
+        {% for checked, tag in tags %}
+          <div>
+            <input class="pull-right" name="tags" type="checkbox" {% if checked %}checked{% endif %}
+                   value="{{ tag.pk }}">
+
+            <span class="label back-step" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+          </div>
+        {% endfor %}
+
+        <button class="btn btn-xs btn-success btn-block row-vspace">Save</button>
+      </form>
+    {% endif %}
+  </div>
+</div>

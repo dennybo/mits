@@ -1,9 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 from models import *
 from forms import *
+from projects.mixins import ProjectAccessCheckMixin, ProjectMixin
 
 
 class ProjectListView(LoginRequiredMixin, generic.ListView):
@@ -38,8 +41,34 @@ class ProjectUpdateView(generic.UpdateView):
     form_class = ProjectForm
 
 
-class ProjectDeleteView(generic.DeleteView):
+class ProjectDeleteView(ProjectAccessCheckMixin, generic.DeleteView):
     model = Project
 
     def get_success_url(self):
         return reverse_lazy('projects:project_list')
+
+    def get_project_kw(self):
+        return 'pk'
+
+
+class ProjectMembershipUpdateView(ProjectMixin, ProjectAccessCheckMixin, generic.UpdateView):
+    model = Project
+    form_class = ProjectMembersForm
+
+    def form_valid(self, form):
+        project = self.get_project()
+        administrators = []
+
+        for admin in project.members.filter(membership__is_administrator=True).all():
+            administrators.append(admin)
+
+        project.members.clear()
+
+        for user in form.cleaned_data.get('members'):
+            membership = Membership(user=user, project=project, is_administrator=user in administrators)
+            membership.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_project_kw(self):
+        return 'pk'

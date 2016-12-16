@@ -31,4 +31,10 @@ urlpatterns = [
         views.ProjectDeleteView.as_view(),
         name='project_delete'
     ),
+
+    url(
+        r'^members/(?P<pk>\d+)/$',
+        views.ProjectMembershipUpdateView.as_view(),
+        name='project_members_update'
+    ),
 ]
