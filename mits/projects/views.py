@@ -53,22 +53,25 @@ class ProjectDeleteView(ProjectAccessCheckMixin, generic.DeleteView):
 
 class ProjectMembershipUpdateView(ProjectMixin, ProjectAccessCheckMixin, generic.UpdateView):
     model = Project
-    form_class = ProjectMembersForm
+    form_class = ProjectForm
+    template_name = 'projects/project_members_form.html'
 
-    def form_valid(self, form):
-        project = self.get_project()
-        administrators = []
+    def get(self, request, *args, **kwargs):
+        project = self.get_object()
 
-        for admin in project.members.filter(membership__is_administrator=True).all():
-            administrators.append(admin)
+        return self.render_to_response({
+            'form': ProjectMembersFormSet(instance=project)
+        })
 
-        project.members.clear()
+    def post(self, request, *args, **kwargs):
+        project = self.get_object()
+        formset = ProjectMembersFormSet(self.request.POST, instance=project)
 
-        for user in form.cleaned_data.get('members'):
-            membership = Membership(user=user, project=project, is_administrator=user in administrators)
-            membership.save()
+        if formset.is_valid():
+            formset.save()
+            return HttpResponseRedirect(project.get_absolute_url())
 
-        return HttpResponseRedirect(self.get_success_url())
+        self.render_to_response(self.get_context_data(form=formset))
 
     def get_project_kw(self):
         return 'pk'

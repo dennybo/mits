@@ -48,3 +48,12 @@
 .remove-link {
   color: #ffffff;
 }
+
+table .form-group {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+table td {
+  padding: 16px;
+}
