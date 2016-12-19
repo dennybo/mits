@@ -7,7 +7,7 @@ class Project(models.Model):
 
     description = models.TextField()
 
-    members = models.ManyToManyField('auth.User', through='Membership')
+    members = models.ManyToManyField('auth.User')
 
     # used to assign the last created issue index number.
     issue_index = models.IntegerField(default=1)
@@ -36,13 +36,3 @@ class Project(models.Model):
 
     def get_members_update_url(self):
         return reverse('projects:project_members_update', args=[self.pk])
-
-
-class Membership(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-
-    is_administrator = models.BooleanField(default=False)
-
-    date_joined = models.DateTimeField(auto_now_add=True)

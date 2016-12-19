@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 
-from models import Project, Membership
+from models import Project
 
 
 class ProjectMixin(object):
@@ -15,12 +15,7 @@ class ProjectMixin(object):
 class ProjectAccessCheckMixin(UserPassesTestMixin):
     def test_func(self):
         project = get_object_or_404(Project, pk=self.kwargs[self.get_project_kw()])
-
-        try:
-            Membership.objects.filter(project=project, user=self.request.user).get()
-            return True
-        except:
-            return False
+        return project.members.filter(pk=self.request.user.pk).exists()
 
     def get_project_kw(self):
         return 'project_pk'

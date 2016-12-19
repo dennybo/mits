@@ -20,18 +20,17 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="pull-right">
-          {% if membership.is_administrator %}
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false">
-                Options <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{ project.get_members_update_url }}" class="load-modal" title="Manage Members">Members</a></li>
-                <li><a href="{{ project.get_update_url }}" class="load-modal" title="Edit Project">Edit</a></li>
-              </ul>
-            </div>
-          {% endif %}
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+              Options <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a href="{{ project.get_members_update_url }}" class="load-modal" title="Manage Members">Members</a>
+              </li>
+              <li><a href="{{ project.get_update_url }}" class="load-modal" title="Edit Project">Edit</a></li>
+            </ul>
+          </div>
         </div>
 
         <h1 class="header-collapse">
@@ -69,6 +68,6 @@
   </div>
 
   <div class="container container-collapse">
-  {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
   </div>
 {% endblock %}
