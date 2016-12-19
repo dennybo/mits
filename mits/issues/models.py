@@ -11,7 +11,7 @@ class Issue(models.Model):
 
     create_date = models.DateTimeField(auto_now_add=True)
 
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     index = models.IntegerField()
 

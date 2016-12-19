@@ -57,15 +57,23 @@
       <div class="row row-vspace">
         <div class="col-sm-12">
           <div class="panel panel-default">
-            <div class="panel-body">
-              {{ issue.description|linebreaksbr }}
-            </div>
+            {% if issue.description %}
+              <div class="panel-body">
+                {{ issue.description|linebreaksbr }}
+              </div>
 
-            <div class="panel-footer">
-              <strong>{{ issue.owner.username }}</strong>,
-              issued in
-              <i>{{ issue.create_date }}</i>
-            </div>
+              <div class="panel-footer">
+                <strong>{{ issue.owner.username }}</strong>,
+                issued in
+                <i>{{ issue.create_date }}</i>
+              </div>
+            {% else %}
+              <div class="panel-body">
+                <strong>{{ issue.owner.username }}</strong>,
+                issued in
+                <i>{{ issue.create_date }}</i>
+              </div>
+            {% endif %}
           </div>
         </div>
       </div>
