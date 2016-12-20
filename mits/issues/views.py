@@ -77,7 +77,7 @@ class IssueCloseView(mixins.ProjectAccessCheckMixin, generic.DetailView):
     def get(self, request, *args, **kwargs):
         issue = self.get_object()
         if not issue.closed:
-            IssueState(issue=issue, closed=True).save()
+            IssueState(issue=issue, closed=True, owner=self.request.user).save()
         return redirect(issue.get_absolute_url())
 
 
