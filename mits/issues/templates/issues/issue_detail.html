@@ -25,13 +25,13 @@
         <div class="pull-right">
           {% if issue.owner == user %}
             <a href="{{ issue.get_update_url }}" class="btn btn-primary load-modal" title="Edit Issue">
-              <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+              <span class="glyphicon glyphicon-pencil"></span></a>
           {% endif %}
         </div>
 
-        <h1 class="header-collapse">{{ issue.name }}
+        <h2 class="header-collapse">{{ issue.name }}
           <small>#{{ issue.index }}</small>
-        </h1>
+        </h2>
       </div>
     </div>
   </div>
@@ -80,11 +80,9 @@
     </div>
   </div>
 
-  <div class="container container-collapse">
+  <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h3>Comments</h3>
-
         {% if issue.comment_set.count == 0 %}
           <div class="alert alert-info">
             No comments so far...
@@ -97,25 +95,39 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Post a comment
-          </div>
+        <ul class="list-group">
+          {% for state in issue.issuestate_set.all %}
+            <li class="list-group-item">
+              {% if state.closed %}
+                <span class="glyphicon glyphicon-eye-close text-danger step"></span> Closed
+              {% else %}
+                <span class="glyphicon glyphicon-eye-open text-muted step"></span> Opened
+              {% endif %}
+              by <strong>{{ state.owner }}</strong>,
+              on {{ state.create_date }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
 
-          <form action="{% url 'comments:comment_create' issue.pk %}" method="post">
-            {% csrf_token %}
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="btn-group" role="group">
+          {% if issue.closed %}
+            <a href="{{ issue.get_open_url }}" class="btn btn-default">
+              Open Issue
+            </a>
+          {% else %}
+            <a href="{{ issue.get_close_url }}" class="btn btn-default">
+              Close Issue
+            </a>
+          {% endif %}
 
-            <div class="panel-body">
-          <textarea name="text" class="form-control" rows="7"
-                    placeholder="Type your comment here..."></textarea>
-            </div>
-
-            <div class="panel-footer">
-              <button type="submit" class="btn btn-success pull-right">Post Comment</button>
-
-              <div class="clearfix"></div>
-            </div>
-          </form>
+          <a href="{% url 'comments:comment_create' issue.pk %}" class="btn btn-default load-modal"
+             title="Post a Comment">
+            Post a Comment
+          </a>
         </div>
       </div>
     </div>

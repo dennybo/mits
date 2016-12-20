@@ -36,3 +36,9 @@ class Project(models.Model):
 
     def get_members_update_url(self):
         return reverse('projects:project_members_update', args=[self.pk])
+
+    def get_issue_list_url(self):
+        return reverse('issues:issue_list', args=[self.pk])
+
+    def get_closed_issue_list_url(self):
+        return reverse('issues:issue_list_closed', args=[self.pk])

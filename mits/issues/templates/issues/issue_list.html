@@ -7,9 +7,27 @@
 
 
 {% block action_button %}
-  <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default active"><span class="glyphicon glyphicon-eye-open"></span></button>
-    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-eye-close"></span></button>
+  <!-- Open/Closed Issues Buttons -->
+  <div class="btn-group" role="group">
+    {% if request.path == project.get_issue_list_url %}
+      <a href="{{ project.get_issue_list_url }}" class="btn btn-default active">
+        <span class="glyphicon glyphicon-eye-open"></span>
+      </a>
+    {% else %}
+      <a href="{{ project.get_issue_list_url }}" class="btn btn-default">
+        <span class="glyphicon glyphicon-eye-open"></span>
+      </a>
+    {% endif %}
+
+    {% if request.path == project.get_closed_issue_list_url %}
+      <a href="{{ project.get_closed_issue_list_url }}" class="btn btn-default active">
+        <span class="glyphicon glyphicon-eye-close"></span>
+      </a>
+    {% else %}
+      <a href="{{ project.get_closed_issue_list_url }}" class="btn btn-default">
+        <span class="glyphicon glyphicon-eye-close"></span>
+      </a>
+    {% endif %}
   </div>
 
   <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success load-modal" title="New Issue">
@@ -30,41 +48,9 @@
             <span class="glyphicon glyphicon-plus"></span> New Issue</a>
         </div>
       {% else %}
-        <div class="list-group">
-
-          {% for issue in project.issue_set.all %}
-            <a href="{{ issue.get_absolute_url }}" class="list-group-item">
-              <div class="pull-right text-muted text-uppercase">
-                <small class="text-right">
-                  <div>
-                    {{ issue.owner.username }}
-                    <span class="glyphicon glyphicon-eye-open back-step"></span>
-                  </div>
-
-                  <div>{{ issue.create_date|date:'d.m.Y h:m' }}</div>
-                </small>
-              </div>
-
-              <div>
-                <span class="text-primary">{{ issue.name }}</span>
-                <span class="text-muted">#{{ issue.index }}</span>
-              </div>
-
-              <div>
-                {% if issue.tags.count == 0 %}
-                  <span class="label label-default">no tags</span>
-                {% endif %}
-
-                {% for tag in issue.tags.all %}
-                  <span class="label" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
-                {% endfor %}
-              </div>
-
-              <div class="clearfix"></div>
-            </a>
-          {% endfor %}
-
-        </div>
+        {% with project.issue_set.all as issues %}
+          {% include 'issues/_issue_list.html' %}
+        {% endwith %}
       {% endif %}
     </div>
   </div>

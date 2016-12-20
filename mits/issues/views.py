@@ -1,13 +1,18 @@
-from django.views import generic
+from django.shortcuts import get_object_or_404, redirect
+from django.views import generic, View
 import services
 
 from forms import *
 from projects import mixins
 from comments.forms import CommentForm
+from mixins import IssueMixin
 
 
 class IssueListView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.ListView):
     model = Issue
+
+    def get_queryset(self):
+        return Issue.objects.filter(closed=False)
 
     def get_context_data(self, **kwargs):
         project = self.get_project()
@@ -18,6 +23,11 @@ class IssueListView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic
         context['membership'] = project.get_membership(self.request.user)
 
         return context
+
+
+class ClosedIssueListView(IssueListView):
+    def get_queryset(self):
+        return Issue.objects.filter(closed=True)
 
 
 class IssueDetailView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.DetailView):
@@ -59,3 +69,23 @@ class IssueTagsUpdateView(mixins.ProjectAccessCheckMixin, generic.UpdateView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+
+class IssueCloseView(mixins.ProjectAccessCheckMixin, generic.DetailView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        issue = self.get_object()
+        if not issue.closed:
+            IssueState(issue=issue, closed=True).save()
+        return redirect(issue.get_absolute_url())
+
+
+class IssueOpenView(mixins.ProjectAccessCheckMixin, generic.DetailView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        issue = self.get_object()
+        if issue.closed:
+            IssueState(issue=issue, closed=False, owner=self.request.user).save()
+        return redirect(issue.get_absolute_url())

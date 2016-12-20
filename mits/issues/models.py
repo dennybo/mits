@@ -17,6 +17,9 @@ class Issue(models.Model):
 
     tags = models.ManyToManyField('tags.Tag', blank=True)
 
+    # this is controlled by IssueStates.
+    closed = models.BooleanField(default=False)
+
     def __unicode__(self):
         return self.name
 
@@ -26,5 +29,33 @@ class Issue(models.Model):
     def get_update_url(self):
         return reverse('issues:issue_update', args=[self.project.pk, self.pk])
 
+    def get_close_url(self):
+        return reverse('issues:issue_close', args=[self.project.pk, self.pk])
+
+    def get_open_url(self):
+        return reverse('issues:issue_open', args=[self.project.pk, self.pk])
+
     class Meta:
         ordering = ['-index']
+
+
+class IssueState(models.Model):
+    issue = models.ForeignKey('Issue')
+
+    owner = models.ForeignKey('auth.User')
+
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    closed = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        super(IssueState, self).save(*args, **kwargs)
+
+        # update the cache state of the related issue.
+        # save after saving this issue.
+        self.issue.closed = self.closed
+
+        try:
+            self.issue.save()
+        except:
+            self.delete()

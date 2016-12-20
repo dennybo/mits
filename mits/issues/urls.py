@@ -9,9 +9,27 @@ urlpatterns = [
     ),
 
     url(
+        r'^closed/$',
+        views.ClosedIssueListView.as_view(),
+        name='issue_list_closed'
+    ),
+
+    url(
         r'^(?P<pk>\d+)/$',
         views.IssueDetailView.as_view(),
         name='issue_detail'
+    ),
+
+    url(
+        r'^(?P<pk>\d+)/close/$',
+        views.IssueCloseView.as_view(),
+        name='issue_close'
+    ),
+
+    url(
+        r'^(?P<pk>\d+)/open/$',
+        views.IssueOpenView.as_view(),
+        name='issue_open'
     ),
 
     url(
