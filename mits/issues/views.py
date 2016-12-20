@@ -12,7 +12,7 @@ class IssueListView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic
     model = Issue
 
     def get_queryset(self):
-        return Issue.objects.filter(closed=False)
+        return self.get_project().issue_set.filter(closed=False)
 
     def get_context_data(self, **kwargs):
         project = self.get_project()
@@ -27,7 +27,7 @@ class IssueListView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic
 
 class ClosedIssueListView(IssueListView):
     def get_queryset(self):
-        return Issue.objects.filter(closed=True)
+        return self.get_project().issue_set.filter(closed=True)
 
 
 class IssueDetailView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.DetailView):
