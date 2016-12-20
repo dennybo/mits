@@ -40,11 +40,11 @@
 {% block content %}
   <div class="row row-vspace">
     <div class="col-sm-12">
-      {% if project.issue_set.count == 0 %}
+      {% if issue_list.count == 0 %}
         <div class="jumbotron text-center">
-          <h1>No issues!</h1>
-          <p>Your project is empty, maybe you would want to add an issue?</p>
-          <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success load-modal">
+          <h1>No issues here!</h1>
+          <p>Maybe you would want to add one?</p>
+          <a href="{% url 'issues:issue_create' project.pk %}" class="btn btn-success load-modal" title="New Issue">
             <span class="glyphicon glyphicon-plus"></span> New Issue</a>
         </div>
       {% else %}

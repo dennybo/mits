@@ -28,9 +28,11 @@
 {% endblock %}
 
 {% if user.is_authenticated %}
+  <hr>
+
   <div class="container container-collapse">
     <div class="row">
-      <div class="col-sm-12 text-right">
+      <div class="col-sm-12 text-center">
         <a href="{% url 'logout' %}">Logout</a>
       </div>
     </div>

@@ -81,58 +81,35 @@
   </div>
 
   <div class="container">
-    <div class="row">
+    {% include 'issues/_action_buttons.html' %}
+
+    <div class="row row-vspace2">
       <div class="col-sm-12">
-        {% if issue.comment_set.count == 0 %}
+        {% if issue.event_set.count == 0 %}
           <div class="alert alert-info">
-            No comments so far...
+            No events related to this issue so far...
           </div>
         {% endif %}
 
-        {% include 'issues/_comments.html' %}
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        {% if issue.issuestate_set.count > 0 %}
-          <ul class="list-group">
-            {% for state in issue.issuestate_set.all %}
-              <li class="list-group-item">
-                {% if state.closed %}
-                  <span class="glyphicon glyphicon-eye-close text-danger step"></span> Closed
-                {% else %}
-                  <span class="glyphicon glyphicon-eye-open text-muted step"></span> Opened
-                {% endif %}
-                by <strong>{{ state.owner }}</strong>,
-                on {{ state.create_date }}
-              </li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="btn-group" role="group">
-          {% if issue.closed %}
-            <a href="{{ issue.get_open_url }}" class="btn btn-default">
-              Open Issue
-            </a>
-          {% else %}
-            <a href="{{ issue.get_close_url }}" class="btn btn-default">
-              Close Issue
-            </a>
+        {% for event in issue.event_set.all %}
+          {% if event.comment %}
+            {% with event.comment as comment %}
+              {% include 'comments/_comment.html' %}
+            {% endwith %}
           {% endif %}
 
-          <a href="{% url 'comments:comment_create' issue.pk %}" class="btn btn-default load-modal"
-             title="Post a Comment">
-            Post a Comment
-          </a>
-        </div>
+          {% if event.state %}
+            {% with event.state as state %}
+              {% include 'issues/_state.html' %}
+            {% endwith %}
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
+
+    {% if issue.event_set.count > 0 %}
+      {% include 'issues/_action_buttons.html' %}
+    {% endif %}
   </div>
 {% endblock %}
 

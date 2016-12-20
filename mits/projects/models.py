@@ -15,6 +15,9 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_open_issues(self):
+        return self.issue_set.filter(closed=False).all()
+
     def get_absolute_url(self):
         return reverse('projects:project_detail', args=[self.pk])
 

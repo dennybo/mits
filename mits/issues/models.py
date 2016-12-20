@@ -39,17 +39,25 @@ class Issue(models.Model):
         ordering = ['-index']
 
 
-class IssueState(models.Model):
+class Event(models.Model):
+    """
+    Any event on the timeline of an issue.
+    """
     issue = models.ForeignKey('Issue')
-
-    owner = models.ForeignKey('auth.User')
 
     create_date = models.DateTimeField(auto_now_add=True)
 
+    owner = models.ForeignKey('auth.User')
+
+
+class State(Event):
+    """
+    An open/close change.
+    """
     closed = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        super(IssueState, self).save(*args, **kwargs)
+        super(State, self).save(*args, **kwargs)
 
         # update the cache state of the related issue.
         # save after saving this issue.

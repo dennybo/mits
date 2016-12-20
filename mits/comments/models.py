@@ -1,17 +1,12 @@
 from django.db import models
 from django.urls import reverse
+from issues.models import Event
 
 
-class Comment(models.Model):
-    owner = models.ForeignKey('auth.User')
-
-    issue = models.ForeignKey('issues.Issue')
-
+class Comment(Event):
     text = models.TextField()
 
-    create_date = models.DateTimeField(auto_now_add=True)
-
-    edit_date = models.DateTimeField(auto_now=True)
+    edit_date = models.DateTimeField(auto_now=True, null=True)
 
     def get_update_url(self):
         return reverse('comments:comment_update', args=[self.issue.pk, self.pk])

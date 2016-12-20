@@ -3,4 +3,5 @@ from models import *
 
 
 admin.site.register(Issue)
-admin.site.register(IssueState)
+admin.site.register(Event)
+admin.site.register(State)

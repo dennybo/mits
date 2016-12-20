@@ -11,6 +11,9 @@
 .row-vspace {
   margin-top: 8px;
 }
+.row-vspace2 {
+  margin-top: 16px;
+}
 
 .header-collapse {
   padding: 0;
@@ -56,4 +59,8 @@ table .form-group {
 
 table td {
   padding: 16px;
+}
+
+.panel.indent {
+  margin-left: 16px;
 }
