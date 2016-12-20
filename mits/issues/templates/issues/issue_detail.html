@@ -64,13 +64,13 @@
 
               <div class="panel-footer">
                 <strong>{{ issue.owner.username }}</strong>,
-                issued in
+                issued on
                 <i>{{ issue.create_date }}</i>
               </div>
             {% else %}
               <div class="panel-body">
                 <strong>{{ issue.owner.username }}</strong>,
-                issued in
+                issued on
                 <i>{{ issue.create_date }}</i>
               </div>
             {% endif %}
@@ -95,19 +95,21 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <ul class="list-group">
-          {% for state in issue.issuestate_set.all %}
-            <li class="list-group-item">
-              {% if state.closed %}
-                <span class="glyphicon glyphicon-eye-close text-danger step"></span> Closed
-              {% else %}
-                <span class="glyphicon glyphicon-eye-open text-muted step"></span> Opened
-              {% endif %}
-              by <strong>{{ state.owner }}</strong>,
-              on {{ state.create_date }}
-            </li>
-          {% endfor %}
-        </ul>
+        {% if issue.issuestate_set.count > 0 %}
+          <ul class="list-group">
+            {% for state in issue.issuestate_set.all %}
+              <li class="list-group-item">
+                {% if state.closed %}
+                  <span class="glyphicon glyphicon-eye-close text-danger step"></span> Closed
+                {% else %}
+                  <span class="glyphicon glyphicon-eye-open text-muted step"></span> Opened
+                {% endif %}
+                by <strong>{{ state.owner }}</strong>,
+                on {{ state.create_date }}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       </div>
     </div>
 
