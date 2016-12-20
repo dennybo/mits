@@ -4,11 +4,14 @@
       <div class="pull-right text-muted text-uppercase">
         <div class="text-right">
           <div>
+            {{ issue.event_set.count }}
+            <span class="glyphicon glyphicon-map-marker back-step step" title="Events"></span>
+
             {{ issue.owner.username }}
             {% if issue.closed %}
-              <span class="glyphicon glyphicon-eye-close back-step text-danger"></span>
+              <span class="glyphicon glyphicon-eye-close back-step text-danger" title="Closed"></span>
             {% else %}
-              <span class="glyphicon glyphicon-eye-open back-step"></span>
+              <span class="glyphicon glyphicon-eye-open back-step" title="Open"></span>
             {% endif %}
           </div>
 

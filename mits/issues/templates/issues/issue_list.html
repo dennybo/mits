@@ -48,9 +48,7 @@
             <span class="glyphicon glyphicon-plus"></span> New Issue</a>
         </div>
       {% else %}
-        {% with project.issue_set.all as issues %}
-          {% include 'issues/_issue_list.html' %}
-        {% endwith %}
+        {% include 'issues/_issue_list.html' %}
       {% endif %}
     </div>
   </div>
