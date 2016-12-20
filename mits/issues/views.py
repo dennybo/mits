@@ -5,7 +5,6 @@ import services
 from forms import *
 from projects import mixins
 from comments.forms import CommentForm
-from mixins import IssueMixin
 
 
 class IssueListView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.ListView):

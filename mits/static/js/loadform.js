@@ -14,6 +14,7 @@ $(function () {
 
         var modal = $('#modal');
         var container = modal.find('.modal-container');
+        container.empty();
 
         modal.find('.modal-title').text(button.attr('title'));
 
