@@ -2,7 +2,6 @@ from django.shortcuts import redirect
 from django.views import generic
 
 from projects.mixins import ProjectMixin, ProjectAccessCheckMixin
-from models import *
 from forms import *
 
 
