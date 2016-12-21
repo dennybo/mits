@@ -63,6 +63,12 @@
 <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
 <script src="{% static 'js/loadform.js' %}"></script>
 
+<script>
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    $('.selectpicker').selectpicker('mobile');
+  }
+</script>
+
 {% block script %}{% endblock %}
 
 </body>

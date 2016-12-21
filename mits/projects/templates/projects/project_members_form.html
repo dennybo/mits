@@ -8,7 +8,14 @@
     <form action="" method="post" enctype="multipart/form-data">
       <div class="panel-body">
         {% csrf_token %}
-        {% bootstrap_form form %}
+
+        <select class="form-control selectpicker" name="members"
+                required multiple data-live-search="true" title="Select issues to add to this checklist...">
+          {% for member in form.members.field.queryset.all %}
+            <option value="{{ member.pk }}" {% if member in form.initial.members %}selected{% endif %}>
+              {{ member }}</option>
+          {% endfor %}
+        </select>
       </div>
 
       <div class="panel-footer">
