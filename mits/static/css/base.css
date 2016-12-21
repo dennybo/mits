@@ -64,3 +64,9 @@ table td {
 .panel.indent {
   margin-left: 16px;
 }
+
+.divider-right {
+  border-left: 1px #cccccc solid;
+  padding-left: 8px;
+  margin-left: 4px;
+}

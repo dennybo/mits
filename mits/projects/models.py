@@ -45,3 +45,12 @@ class Project(models.Model):
 
     def get_closed_issue_list_url(self):
         return reverse('issues:issue_list_closed', args=[self.pk])
+
+    def get_issues_url(self):
+        return reverse('issues:issue_list', args=[self.pk])
+
+    def get_tags_url(self):
+        return reverse('tags:tag_list', args=[self.pk])
+
+    def get_checklists_url(self):
+        return reverse('checklists:checklist_list', args=[self.pk])

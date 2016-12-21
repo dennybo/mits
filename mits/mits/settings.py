@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'comments',
     'tags',
     'colorful',
+    'checklists',
 ]
 
 MIDDLEWARE = [

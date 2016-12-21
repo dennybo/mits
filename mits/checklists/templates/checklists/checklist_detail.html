@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+
+{% block title %}
+  {{ issue.name }}
+{% endblock %}
+
+
+{% block container %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <a href="{{ checklist.project.get_checklists_url }}" class="no-underline">
+          <h4 class="header-collapse text-muted text-uppercase">
+            <span class="glyphicon glyphicon-arrow-left step"></span> {{ checklist.project }}</h4>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container container-collapse">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pull-right">
+          <a href="{{ checklist.get_update_url }}" class="btn btn-primary load-modal" title="Edit Checklist">
+            <span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
+
+        <h2 class="header-collapse">{{ checklist.name }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="middle-container">
+    <div class="container container-collapse">
+      <div class="row">
+        <div class="col-sm-12">
+          {% with checklist.get_percentage as percentage %}
+            <div class="progress" style="margin-bottom:10px;">
+              <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                   aria-valuenow="{{ percentage }}"
+                   aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage }}%">
+
+                {% if percentage != 0 %}
+                  {{ percentage }}%
+                {% endif %}
+              </div>
+            </div>
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        {% if checklist.issues.count == 0 %}
+          <div class="alert alert-info">
+            No issues added to this checklist yet...
+          </div>
+        {% endif %}
+
+        <div class="list-group">
+          {% for issue in checklist.issues.all %}
+            <a href="{{ issue.get_absolute_url }}" class="list-group-item">
+              <div class="pull-right text-muted text-uppercase">
+                <div class="text-right divider-right">
+                  <div>
+                    {{ issue.owner.username }}
+                    {% if issue.closed %}
+                      <span class="glyphicon glyphicon-eye-close back-step text-danger" title="Closed"></span>
+                    {% else %}
+                      <span class="glyphicon glyphicon-eye-open back-step" title="Open"></span>
+                    {% endif %}
+                  </div>
+
+                  <div>{{ issue.create_date|date:'d.m.Y h:m' }}</div>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-primary">{{ issue.name }}</span>
+                <span class="text-muted">#{{ issue.index }}</span>
+              </div>
+
+              <div>
+                {% if issue.tags.count == 0 %}
+                  <span class="label label-default">no tags</span>
+                {% endif %}
+
+                {% for tag in issue.tags.all %}
+                  <span class="label" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+                {% endfor %}
+              </div>
+
+              <div class="clearfix"></div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Add issue
+          </div>
+
+          <div class="panel-body">
+            <div class="row">
+              <form action="{{ checklist.get_add_issue_url }}" method="post">
+                {% csrf_token %}
+                <div class="col-xs-10">
+                  {% bootstrap_field add_issue_form.issue layout='inline' %}
+                </div>
+
+                <div class="col-xs-2">
+                  <button type="submit" class="btn btn-block btn-primary">Add</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
