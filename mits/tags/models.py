@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from colorful.fields import RGBColorField
+
 
 class LowerCaseCharField(models.CharField):
     def to_python(self, value):
@@ -10,9 +12,9 @@ class LowerCaseCharField(models.CharField):
 class Tag(models.Model):
     project = models.ForeignKey('projects.Project')
 
-    name = LowerCaseCharField(max_length=64)
+    name = LowerCaseCharField(max_length=deb64)
 
-    color = models.CharField(max_length=7)
+    color = RGBColorField()
 
     def __unicode__(self):
         return self.name
