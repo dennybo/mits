@@ -9,7 +9,7 @@ class Checklist(models.Model):
 
     description = models.TextField(blank=True)
 
-    issues = models.ManyToManyField('issues.Issue')
+    issues = models.ManyToManyField('issues.Issue', blank=True)
 
     def __unicode__(self):
         return self.name
