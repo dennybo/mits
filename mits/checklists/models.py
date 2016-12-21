@@ -7,7 +7,7 @@ class Checklist(models.Model):
 
     name = models.CharField(max_length=256)
 
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     issues = models.ManyToManyField('issues.Issue')
 
