@@ -1,0 +1,56 @@
+{% extends 'projects/project_base.html' %}
+
+{% block action_button %}
+  <a href="{% url 'checklists:checklist_create' project.pk %}" class="btn btn-success load-modal" title="New Checklist">
+    <span class="glyphicon glyphicon-plus"></span>
+    <span class="hidden-xs">New Checklist</span>
+  </a>
+{% endblock %}
+
+
+{% block content %}
+  <div class="row row-vspace">
+    <div class="col-sm-12">
+      {% if checklist_list.count == 0 %}
+        <div class="jumbotron text-center">
+          <h1>No checklists</h1>
+          <p>Create checklists to keep your issues organized in features and releases</p>
+          <a href="{% url 'checklists:checklist_create' project.pk %}" class="btn btn-success load-modal"
+             title="New Checklist">
+            <span class="glyphicon glyphicon-plus"></span> New Checklist</a>
+        </div>
+      {% endif %}
+
+      <div class="list-group">
+        {% for checklist in checklist_list %}
+          <a href="{{ checklist.get_absolute_url }}" class="list-group-item">
+            <div class="pull-right">
+              {{ checklist.issues.count }} issues
+            </div>
+
+            <strong>{{ checklist }}</strong>
+
+            <div class="row-vspace">
+              {% with checklist.get_percentage as percentage %}
+                <div class="progress" style="margin-bottom:10px;">
+                  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                       aria-valuenow="{{ percentage }}"
+                       aria-valuemin="0" aria-valuemax="100" style="width: {{ percentage }}%">
+
+                    {% if percentage != 0 %}
+                      {{ percentage }}%
+                    {% endif %}
+                  </div>
+                </div>
+              {% endwith %}
+            </div>
+
+            <div>
+              {{ checklist.description }}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

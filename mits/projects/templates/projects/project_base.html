@@ -50,17 +50,19 @@
 
           <ul class="nav nav-tabs">
             <li role="presentation" {% if active == 'issues' %}class="active"{% endif %}>
-              <a href="{% url 'issues:issue_list' project.pk %}">
+              <a href="{{ project.get_issues_url }}">
                 <span class="glyphicon glyphicon-record"></span>
                 <span class="hidden-xs">Issues</span></a></li>
+
             <li role="presentation" {% if active == 'tags' %}class="active"{% endif %}>
-              <a href="{% url 'tags:tag_list' project.pk %}">
+              <a href="{{ project.get_tags_url }}">
                 <span class="glyphicon glyphicon-tag"></span>
                 <span class="hidden-xs">Tags</span></a></li>
-            <li role="presentation" {% if active == 'milestones' %}class="active"{% endif %}>
-              <a href="#">
-                <span class="glyphicon glyphicon-star-empty"></span>
-                <span class="hidden-xs">Milestones</span></a></li>
+
+            <li role="presentation" {% if active == 'checklists' %}class="active"{% endif %}>
+              <a href="{{ project.get_checklists_url }}">
+                <span class="glyphicon glyphicon-check"></span>
+                <span class="hidden-xs">Checklists</span></a></li>
           </ul>
         </div>
       </div>

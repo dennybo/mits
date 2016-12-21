@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'issues',
     'comments',
     'tags',
+    'checklists',
 ]
 
 MIDDLEWARE = [
