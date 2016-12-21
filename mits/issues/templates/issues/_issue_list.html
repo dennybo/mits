@@ -2,10 +2,10 @@
   {% for issue in issue_list %}
     <a href="{{ issue.get_absolute_url }}" class="list-group-item">
       <div class="pull-right text-muted text-uppercase">
-        <div class="text-right">
+        <div class="text-right divider-right">
           <div>
             {{ issue.event_set.count }}
-            <span class="glyphicon glyphicon-map-marker back-step step" title="Events"></span>
+            <span class="glyphicon glyphicon-map-marker step" title="Events"></span>
 
             {{ issue.owner.username }}
             {% if issue.closed %}
