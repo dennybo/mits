@@ -102,6 +102,12 @@
               {% include 'issues/_state.html' %}
             {% endwith %}
           {% endif %}
+
+          {% if event.pin %}
+            {% with event.pin as pin %}
+              {% include 'issues/_pin.html' %}
+            {% endwith %}
+          {% endif %}
         {% endfor %}
       </div>
     </div>

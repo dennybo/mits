@@ -49,4 +49,10 @@ urlpatterns = [
         views.IssueTagsUpdateView.as_view(),
         name='issue_tags_update'
     ),
+
+    url(
+        r'^(?P<pk>\d+)/pin/$',
+        views.IssuePinToggleView.as_view(),
+        name='issue_pin_toggle'
+    ),
 ]

@@ -88,3 +88,15 @@ class IssueOpenView(mixins.ProjectAccessCheckMixin, generic.DetailView):
         if issue.closed:
             State(issue=issue, closed=False, owner=self.request.user).save()
         return redirect(issue.get_absolute_url())
+
+
+class IssuePinToggleView(mixins.ProjectAccessCheckMixin, generic.DetailView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        issue = self.get_object()
+        if not issue.pinned:
+            issue.set_pin(True, self.request.user)
+        else:
+            issue.set_pin(False, self.request.user)
+        return redirect(issue.get_absolute_url())
