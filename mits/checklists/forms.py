@@ -15,6 +15,12 @@ class IssueChoiceField(forms.ModelChoiceField):
 
 
 class ChecklistIssuesForm(forms.ModelForm):
+    issues = forms.MultipleChoiceField()
+
+    def __init__(self, *args, **kwargs):
+        super(ChecklistIssuesForm, self).__init__(*args, **kwargs)
+        self.fields['issues'].queryset = self.instance.project.issue_set
+
     class Meta:
         model = Checklist
         fields = ['issues']
