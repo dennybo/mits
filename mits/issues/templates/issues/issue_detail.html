@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load urlfy %}
+{% load markup %}
 
 
 {% block title %}
@@ -58,7 +60,7 @@
           <div class="panel panel-default">
             {% if issue.description %}
               <div class="panel-body">
-                {{ issue.description|linebreaksbr }}
+                {{ issue.description|urlfy|markdown:'markdown.extensions.fenced_code' }}
               </div>
 
               <div class="panel-footer">

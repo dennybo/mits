@@ -78,3 +78,7 @@ table td {
   background-color: #f7f7f7;
   margin-bottom: 2px;
 }
+
+p:last-child {
+  margin-bottom: 0;
+}

@@ -33,6 +33,12 @@ urlpatterns = [
     ),
 
     url(
+        r'^report/(?P<pk>\d+)/$',
+        views.ProjectReportView.as_view(),
+        name='project_report'
+    ),
+
+    url(
         r'^members/(?P<pk>\d+)/$',
         views.ProjectMembershipUpdateView.as_view(),
         name='project_members_update'

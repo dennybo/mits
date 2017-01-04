@@ -58,3 +58,11 @@ class ProjectMembershipUpdateView(ProjectMixin, ProjectAccessCheckMixin, generic
 
     def get_project_kw(self):
         return 'pk'
+
+
+class ProjectReportView(ProjectMixin, ProjectAccessCheckMixin, generic.DetailView):
+    model = Project
+    template_name = 'projects/project_report.html'
+
+    def get_project_kw(self):
+        return 'pk'
