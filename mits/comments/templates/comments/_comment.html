@@ -1,3 +1,6 @@
+{% load markup %}
+{% load urlfy %}
+
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="pull-right">
@@ -22,6 +25,6 @@
   </div>
 
   <div class="panel-body">
-    {{ comment.text|linebreaksbr }}
+    {{ comment.text|urlfy|markdown:'markdown.extensions.fenced_code' }}
   </div>
 </div>
