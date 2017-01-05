@@ -61,39 +61,16 @@
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'js/autogrow.js' %}"></script>
+
 <script src="{% static 'js/loadform.js' %}"></script>
 
 <script>
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
     $('.selectpicker').selectpicker('mobile');
   }
-</script>
 
-<script>
-  function enableTab(id) {
-    var el = document.getElementById(id);
-    el.onkeydown = function (e) {
-      if (e.keyCode === 9) { // tab was pressed
-
-        // get caret position/selection
-        var val = this.value,
-            start = this.selectionStart,
-            end = this.selectionEnd;
-
-        // set textarea value to: text before caret + tab + text after caret
-        this.value = val.substring(0, start) + '\t' + val.substring(end);
-
-        // put caret at right position again
-        this.selectionStart = this.selectionEnd = start + 1;
-
-        // prevent the focus lose
-        return false;
-
-      }
-    };
-  }
-
-  enableTab('id_text');
+  $('textarea').autogrow({vertical: true, horizontal: false, flickering: false});
 </script>
 
 {% block script %}{% endblock %}
