@@ -1,9 +1,11 @@
 {% load markup %}
 {% load urlfy %}
 
-<div class="panel panel-default">
+<div class="panel panel-default comment">
   <div class="panel-heading">
     <div class="pull-right">
+      <a class="label label-default load-modal" title="Reply" href="{{ comment.get_reply_url }}">Reply</a>
+
       {% if comment.owner == user %}
         <div class="btn-group">
           <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"
@@ -19,12 +21,31 @@
       {% endif %}
     </div>
 
-    <strong>{{ comment.owner.username }}</strong>,
-    commented on
-    <i>{{ comment.create_date }}</i>
+    <span class="glyphicon glyphicon-comment step"></span>
+    Comment by <strong>{{ comment.owner.username }}</strong>, on
+    <i>{{ comment.create_date|date:'d.m.Y @ h:m' }}</i>
   </div>
 
   <div class="panel-body">
-    {{ comment.text|urlfy|markdown:'markdown.extensions.fenced_code' }}
+    {{ comment.text|force_escape|urlfy|markdown:'markdown.extensions.fenced_code' }}
   </div>
 </div>
+
+{% if comment.reply_set.count > 0 %}
+  <ul class="list-group replies">
+    {% for reply in comment.reply_set.all %}
+      <li class="list-group-item">
+        <div class="pull-right">
+          <a href="{{ reply.get_update_url }}" title="Update Reply" class="load-modal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
+
+        <div>
+          <span class="glyphicon glyphicon-menu-right step"></span>
+          Reply by <strong>{{ reply.owner }}</strong>, on <i>{{ reply.create_date|date:'d.m.Y @ h:m' }}</i>
+        </div>
+
+        {{ reply.text|urlfy|markdown:'markdown.extensions.fenced_code'|safe }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

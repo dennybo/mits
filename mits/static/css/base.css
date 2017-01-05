@@ -71,6 +71,20 @@ table td {
   margin-left: 4px;
 }
 
+.comment+.replies {
+  margin-top: -21px;
+}
+
+.comment+.replies .list-group-item {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.replies {
+  margin-left: 16px;
+  margin-right: 4px;
+}
+
 /*
  * Issue Cards
  */

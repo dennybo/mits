@@ -14,8 +14,8 @@ class IssueForm(forms.ModelForm):
 
     def __init__(self, project, issue, *args, **kwargs):
         super(IssueForm, self).__init__(*args, **kwargs)
+        # configure checklists field.
         self.fields['checklists'].queryset = project.checklist_set
-
         if issue:
             self.fields['checklists'].initial = issue.checklist_set.all()
 
