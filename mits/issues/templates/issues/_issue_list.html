@@ -1,12 +1,12 @@
 <div class="list-group">
   {% for issue in issue_list %}
-    {% if issue.pinned %}
+    {% if issue.pinned and not issue.closed %}
       {% include 'issues/_issue_card.html' %}
     {% endif %}
   {% endfor %}
 
   {% for issue in issue_list %}
-    {% if not issue.pinned %}
+    {% if not issue.pinned or issue.closed %}
       {% include 'issues/_issue_card.html' %}
     {% endif %}
   {% endfor %}
