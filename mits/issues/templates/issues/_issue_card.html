@@ -1,44 +1,66 @@
 {% if issue.pinned and not issue.closed %}
-  <a href="{{ issue.get_absolute_url }}" class="list-group-item list-group-item-pin">
-{% else %}
-  <a href="{{ issue.get_absolute_url }}" class="list-group-item">
-{% endif %}
+  <a href="{{ issue.get_absolute_url }}" class="list-group-item issue-pinned">
+    <div class="pull-right text-muted text-uppercase">
+      <div class="text-right divider-right">
+        <div>
+          {{ issue.event_set.count }}
+          <span class="glyphicon glyphicon-map-marker" title="Events"></span>
 
-  <div class="pull-right text-muted text-uppercase">
-    <div class="text-right divider-right">
-      <div>
-        {{ issue.event_set.count }}
-        <span class="glyphicon glyphicon-map-marker" title="Events"></span>
-
-        {% if issue.closed %}
-          <span class="glyphicon glyphicon-eye-close back-step text-danger" title="Closed"></span>
-        {% else %}
-          <span class="glyphicon glyphicon-eye-open back-step" title="Open"></span>
-        {% endif %}
-
-        {% if issue.pinned %}
-          <span class="glyphicon glyphicon-pushpin text-success back-step" title="Open"></span>
-        {% endif %}
+          {% if issue.pinned %}
+            <span class="glyphicon glyphicon-pushpin text-success back-step" title="Open"></span>
+          {% endif %}
+        </div>
       </div>
-
-      <div>{{ issue.create_date|date:'d.m.Y h:m' }}</div>
     </div>
-  </div>
 
-  <div>
-    <span class="text-primary">{{ issue.name }}</span>
-    <span class="text-muted">#{{ issue.index }}</span>
-  </div>
+    <div>
+      <span class="text-primary">{{ issue.name }}</span>
+      <span class="text-muted">#{{ issue.index }}</span>
+      {% for tag in issue.tags.all %}
+        <span class="label" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+      {% endfor %}
+    </div>
 
-  <div>
-    {% if issue.tags.count == 0 %}
-      <span class="label label-default">no tags</span>
-    {% endif %}
+    <div class="clearfix"></div>
+  </a>
+{% else %}
+  <a href="{{ issue.get_absolute_url }}" class="list-group-item issue-unpinned">
+    <div class="pull-right text-muted text-uppercase">
+      <div class="text-right divider-right">
+        <div>
+          {{ issue.event_set.count }}
+          <span class="glyphicon glyphicon-map-marker" title="Events"></span>
 
-    {% for tag in issue.tags.all %}
-      <span class="label" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
-    {% endfor %}
-  </div>
+          {% if issue.closed %}
+            <span class="glyphicon glyphicon-eye-close back-step text-danger" title="Closed"></span>
+          {% else %}
+            <span class="glyphicon glyphicon-eye-open back-step" title="Open"></span>
+          {% endif %}
 
-  <div class="clearfix"></div>
-</a>
+          {% if issue.pinned %}
+            <span class="glyphicon glyphicon-pushpin text-success back-step" title="Open"></span>
+          {% endif %}
+        </div>
+
+        <div>{{ issue.create_date|date:'d.m.Y h:m' }}</div>
+      </div>
+    </div>
+
+    <div>
+      <span class="text-primary">{{ issue.name }}</span>
+      <span class="text-muted">#{{ issue.index }}</span>
+    </div>
+
+    <div>
+      {% if issue.tags.count == 0 %}
+        <span class="label label-default">no tags</span>
+      {% endif %}
+
+      {% for tag in issue.tags.all %}
+        <span class="label" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="clearfix"></div>
+  </a>
+{% endif %}

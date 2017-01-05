@@ -27,7 +27,7 @@
   </div>
 
   <div class="panel-body">
-    {{ comment.text|force_escape|urlfy|markdown:'markdown.extensions.fenced_code' }}
+    {{ comment.text|urlfy|markdown:'markdown.extensions.fenced_code' }}
   </div>
 </div>
 

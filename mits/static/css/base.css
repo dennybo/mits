@@ -1,6 +1,14 @@
+body {
+    background-color: #fafafa;
+}
+
 .container {
   padding-top: 16px;
   max-width: 900px;
+}
+
+.panel-primary-light {
+  border-color: #3986ca;
 }
 
 .page-header {
@@ -34,7 +42,7 @@
 
 .middle-container {
   margin-top: 8px;
-  background-color: #f9f9f9;
+  background-color: #f7f7f7;
   padding-top: 8px;
   border-bottom: 1px #e7e7e7 solid;
   border-top: 1px #e7e7e7 solid;
@@ -62,7 +70,8 @@ table td {
 }
 
 .panel.indent {
-  margin-left: 16px;
+  border-left-width: 3px;
+  margin-left: 12px;
 }
 
 .divider-right {
@@ -88,9 +97,11 @@ table td {
 /*
  * Issue Cards
  */
-.list-group-item-pin {
+.issue-pinned {
   background-color: #f7f7f7;
-  margin-bottom: 2px;
+}
+.issue-pinned+.issue-unpinned {
+  margin-top: 8px;
 }
 
 p:last-child {

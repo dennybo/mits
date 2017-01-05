@@ -10,7 +10,7 @@
 {% block preform %}
   <div class="panel-body" style="padding-bottom: 0">
     <blockquote style="margin-bottom: 0">
-      {{ comment.text|force_escape|urlfy|markdown:'markdown.extensions.fenced_code' }}
+      {{ comment.text|urlfy|markdown:'markdown.extensions.fenced_code' }}
     </blockquote>
 
     <strong>{{ comment.owner.username }}</strong>,

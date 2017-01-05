@@ -93,6 +93,11 @@ class IssueCloseView(mixins.ProjectAccessCheckMixin, generic.DetailView):
         issue = self.get_object()
         if not issue.closed:
             State(issue=issue, closed=True, owner=self.request.user).save()
+
+            if issue.pinned:
+                # TODO: check if this could provoke issues later.
+                issue.pinned = False
+                issue.save()
         return redirect(issue.get_absolute_url())
 
 
