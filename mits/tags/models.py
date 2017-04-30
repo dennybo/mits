@@ -12,7 +12,7 @@ class LowerCaseCharField(models.CharField):
 class Tag(models.Model):
     project = models.ForeignKey('projects.Project')
 
-    name = LowerCaseCharField(max_length=deb64)
+    name = LowerCaseCharField(max_length=64)
 
     color = RGBColorField()
 
