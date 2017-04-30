@@ -10,15 +10,6 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <a href="{% url 'projects:project_list' %}" class="no-underline">
-          <h4 class="header-collapse text-muted text-uppercase">
-            <span class="glyphicon glyphicon-arrow-left step"></span> Projects</h4>
-        </a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
         <div class="pull-right">
           <div class="btn-group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -29,6 +20,7 @@
               <li><a href="{{ project.get_members_update_url }}" class="load-modal" title="Manage Members">Members</a>
               </li>
               <li><a href="{{ project.get_update_url }}" class="load-modal" title="Edit Project">Edit</a></li>
+              <li><a href="{{ project.get_report_url }}" title="Project Report">Report</a></li>
             </ul>
           </div>
         </div>

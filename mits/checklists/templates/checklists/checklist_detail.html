@@ -12,8 +12,7 @@
     <div class="row">
       <div class="col-sm-12">
         <a href="{{ checklist.project.get_checklists_url }}" class="no-underline">
-          <h4 class="header-collapse text-muted text-uppercase">
-            <span class="glyphicon glyphicon-arrow-left step"></span> {{ checklist.project }}</h4>
+          <h4 class="header-collapse text-muted text-uppercase">{{ checklist.project }}</h4>
         </a>
       </div>
     </div>
@@ -106,23 +105,34 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            Add issue
+            Manage Issues
           </div>
 
-          <div class="panel-body">
-            <div class="row">
-              <form action="{{ checklist.get_add_issue_url }}" method="post">
-                {% csrf_token %}
-                <div class="col-xs-10">
-                  {% bootstrap_field add_issue_form.issue layout='inline' %}
-                </div>
+          <form action="{{ checklist.get_add_issue_url }}" method="post">
+            {% csrf_token %}
+            <table class="table" style="margin: 0">
+              <tbody>
+              <tr>
+                <td width="100%">
+                  <div class="form-group">
+                    <select class="form-control selectpicker" id="id_issue" name="issues"
+                            required multiple data-live-search="true" title="Select issues to add to this checklist...">
+                      {% for issue in add_issue_form.issues.field.queryset.all %}
+                        <option title="#{{ issue.index }}" value="{{ issue.pk }}" {% if issue in add_issue_form.initial.issues %}selected{% endif %}>
+                          #{{ issue.index }}: {{ issue }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </td>
 
-                <div class="col-xs-2">
-                  <button type="submit" class="btn btn-block btn-primary">Add</button>
-                </div>
-              </form>
-            </div>
-          </div>
+                <td width="0">
+                  <button type="submit" class="btn btn-block btn-primary"><span
+                      class="glyphicon glyphicon-ok"></span></button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </form>
         </div>
       </div>
     </div>

@@ -17,11 +17,17 @@ class Issue(models.Model):
 
     tags = models.ManyToManyField('tags.Tag', blank=True)
 
-    # this is controlled by IssueStates.
+    # this is controlled by Issue States.
     closed = models.BooleanField(default=False)
+
+    # controlled by Issue Pins.
+    pinned = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
+
+    def set_pin(self, pinned, owner):
+        Pin(issue=self, pinned=pinned, owner=owner).save()
 
     def get_absolute_url(self):
         return reverse('issues:issue_detail', args=[self.project.pk, self.pk])
@@ -34,6 +40,9 @@ class Issue(models.Model):
 
     def get_open_url(self):
         return reverse('issues:issue_open', args=[self.project.pk, self.pk])
+
+    def get_pin_toggle_url(self):
+        return reverse('issues:issue_pin_toggle', args=[self.project.pk, self.pk])
 
     class Meta:
         ordering = ['-index']
@@ -62,6 +71,20 @@ class State(Event):
         # update the cache state of the related issue.
         # save after saving this issue.
         self.issue.closed = self.closed
+
+        try:
+            self.issue.save()
+        except:
+            self.delete()
+
+
+class Pin(Event):
+    pinned = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        super(Pin, self).save(*args, **kwargs)
+
+        self.issue.pinned = self.pinned
 
         try:
             self.issue.save()

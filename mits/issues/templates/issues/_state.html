@@ -1,9 +1,9 @@
-<div class="panel panel-default indent">
+<div class="panel panel-primary indent">
   <div class="panel-body">
     {% if state.closed %}
       <span class="glyphicon glyphicon-eye-close text-danger step"></span> Closed
     {% else %}
-      <span class="glyphicon glyphicon-eye-open text-muted step"></span> Opened
+      <span class="glyphicon glyphicon-eye-open text-primary step"></span> Opened
     {% endif %}
     by <strong>{{ state.owner }}</strong>,
     on {{ state.create_date }}

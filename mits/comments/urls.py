@@ -19,4 +19,16 @@ urlpatterns = [
         views.CommentDeleteView.as_view(),
         name='comment_delete'
     ),
+
+    url(
+        r'^(?P<issue_pk>\d+)/reply/(?P<comment_pk>\d+)/create/$',
+        views.ReplyCreateView.as_view(),
+        name='reply_create'
+    ),
+
+    url(
+        r'^(?P<issue_pk>\d+)/reply/(?P<comment_pk>\d+)/update/(?P<pk>\d+)/$',
+        views.ReplyUpdateView.as_view(),
+        name='reply_update'
+    ),
 ]

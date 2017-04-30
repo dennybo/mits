@@ -10,8 +10,6 @@ $(function () {
         var button = $(this);
         var url = button.attr('href');
 
-        console.log(button);
-
         var modal = $('#modal');
         var container = modal.find('.modal-container');
         container.empty();
@@ -21,6 +19,14 @@ $(function () {
         container.load(url + ' form', function (e) {
             var action = container.find('form').attr('action');
 
+            // refresh select picker widget.
+            container.find('.selectpicker').selectpicker('refresh');
+
+            // refresh autogrow.
+            container.find('textarea').css('min-height', '72px');
+            container.find('textarea').autogrow({vertical: true, horizontal: false, flickering: false});
+
+            // set action if form used blank as action url.
             if (action == "") {
                 container.find('form').attr('action', url);
             }

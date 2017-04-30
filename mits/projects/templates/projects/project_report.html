@@ -1,0 +1,79 @@
+{% extends 'projects/project_base.html' %}
+{% load urlfy %}
+{% load markup %}
+
+{% block content %}
+  <div class="row row-vspace">
+    <div class="col-sm-12">
+      {% for issue in project.issue_set.all %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a href="{{ issue.get_absolute_url }}">{{ issue.name }}</a>
+            <small>#{{ issue.index }}</small>
+
+            <div class="pull-right">
+              by <strong>{{ issue.owner }}</strong> on {{ issue.create_date }}
+            </div>
+          </div>
+
+          {% if issue.description %}
+            <div class="panel-body">
+              {{ issue.description|urlfy|markdown:'markdown.extensions.fenced_code' }}
+            </div>
+
+            {% if issue.event_set.count > 0 %}
+              <div class="panel-footer panel-heading"></div>
+            {% endif %}
+          {% endif %}
+
+          {% if issue.event_set.count > 0 %}
+            <ul class="list-group">
+              {% for event in issue.event_set.all %}
+                <li class="list-group-item">
+                  {% if event.comment %}
+                    <span class="glyphicon glyphicon-comment step pull-left"></span>
+                    <p>Comment by <strong>{{ issue.owner }}</strong> on {{ issue.create_date }}</p>
+                    {{ event.comment.text|urlfy|markdown:'markdown.extensions.fenced_code' }}
+
+                    {% if event.comment.reply_set.count > 0 %}
+                      {% for reply in event.comment.reply_set.all %}
+                        <div class="list-group-item">
+                          <p>
+                            <span class="glyphicon glyphicon-menu-right step"></span>
+                            Reply by <strong>{{ reply.owner }}</strong>, on <i>{{ reply.create_date }}</i>
+                          </p>
+
+                          {{ reply.text|urlfy|markdown:'markdown.extensions.fenced_code'|safe }}
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  {% endif %}
+
+                  {% if event.state %}
+                    {% if event.state.closed %}
+                      <span class="glyphicon glyphicon-eye-close text-danger step"></span> Closed
+                    {% else %}
+                      <span class="glyphicon glyphicon-eye-open text-muted step"></span> Opened
+                    {% endif %}
+                    by <strong>{{ event.state.owner }}</strong>,
+                    on {{ event.state.create_date }}
+                  {% endif %}
+
+                  {% if event.pin %}
+                    {% if event.pin.pinned %}
+                      <span class="glyphicon glyphicon-pushpin text-success step"></span> Pinned
+                    {% else %}
+                      <span class="glyphicon glyphicon-pushpin text-danger step"></span> Unpinned
+                    {% endif %}
+                    by <strong>{{ event.pin.owner }}</strong>,
+                    on {{ event.pin.create_date }}
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

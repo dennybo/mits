@@ -1,19 +1,23 @@
 <div class="row">
   <div class="col-sm-12">
-    <div class="btn-group" role="group">
+    <div class="btn-group btn-group-justified" role="group">
       {% if issue.closed %}
         <a href="{{ issue.get_open_url }}" class="btn btn-default">
-          Open Issue
+          Open
         </a>
       {% else %}
         <a href="{{ issue.get_close_url }}" class="btn btn-default">
-          Close Issue
+          Close
         </a>
       {% endif %}
 
       <a href="{% url 'comments:comment_create' issue.pk %}" class="btn btn-default load-modal"
          title="Post a Comment">
-        Post a Comment
+        Comment
+      </a>
+
+      <a href="{{ issue.get_pin_toggle_url }}" class="btn btn-default">
+        {% if not issue.pinned %}Pin{% else %}Unpin{% endif %}
       </a>
     </div>
   </div>

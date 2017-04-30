@@ -1,4 +1,6 @@
 Django==1.10.4
 django-bootstrap3==7.1.0
-Jinja2==2.8
+django-colorful==1.2
+django-markwhat==1.5.1
+Markdown==2.6.7
 MarkupSafe==0.23

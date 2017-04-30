@@ -1,6 +1,14 @@
+body {
+    background-color: #fafafa;
+}
+
 .container {
   padding-top: 16px;
   max-width: 900px;
+}
+
+.panel-primary-light {
+  border-color: #3986ca;
 }
 
 .page-header {
@@ -34,7 +42,7 @@
 
 .middle-container {
   margin-top: 8px;
-  background-color: #f9f9f9;
+  background-color: #f1f1f1;
   padding-top: 8px;
   border-bottom: 1px #e7e7e7 solid;
   border-top: 1px #e7e7e7 solid;
@@ -62,11 +70,40 @@ table td {
 }
 
 .panel.indent {
-  margin-left: 16px;
+  border-left-width: 3px;
+  margin-left: 12px;
 }
 
 .divider-right {
   border-left: 1px #cccccc solid;
   padding-left: 8px;
   margin-left: 4px;
+}
+
+.comment+.replies {
+  margin-top: -21px;
+}
+
+.comment+.replies .list-group-item {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.replies {
+  margin-left: 16px;
+  margin-right: 4px;
+}
+
+/*
+ * Issue Cards
+ */
+.issue-pinned {
+  background-color: #f7f7f7;
+}
+.issue-pinned+.issue-unpinned {
+  margin-top: 8px;
+}
+
+p:last-child {
+  margin-bottom: 0;
 }

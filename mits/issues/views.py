@@ -43,6 +43,16 @@ class IssueCreateView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, gener
     model = Issue
     form_class = IssueForm
 
+    def post(self, request, *args, **kwargs):
+        print request.POST
+        return super(IssueCreateView, self).post(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super(IssueCreateView, self).get_form_kwargs()
+        kwargs['project'] = self.get_project()
+        kwargs['issue'] = None
+        return kwargs
+
     def form_valid(self, form):
         project = self.get_project()
 
@@ -57,9 +67,15 @@ class IssueCreateView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, gener
         return super(IssueCreateView, self).form_valid(form)
 
 
-class IssueUpdateView(mixins.ProjectAccessCheckMixin, generic.UpdateView):
+class IssueUpdateView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.UpdateView):
     model = Issue
     form_class = IssueForm
+
+    def get_form_kwargs(self):
+        kwargs = super(IssueUpdateView, self).get_form_kwargs()
+        kwargs['project'] = self.get_project()
+        kwargs['issue'] = self.object
+        return kwargs
 
 
 class IssueTagsUpdateView(mixins.ProjectAccessCheckMixin, generic.UpdateView):
@@ -77,6 +93,11 @@ class IssueCloseView(mixins.ProjectAccessCheckMixin, generic.DetailView):
         issue = self.get_object()
         if not issue.closed:
             State(issue=issue, closed=True, owner=self.request.user).save()
+
+            if issue.pinned:
+                # TODO: check if this could provoke issues later.
+                issue.pinned = False
+                issue.save()
         return redirect(issue.get_absolute_url())
 
 
@@ -87,4 +108,16 @@ class IssueOpenView(mixins.ProjectAccessCheckMixin, generic.DetailView):
         issue = self.get_object()
         if issue.closed:
             State(issue=issue, closed=False, owner=self.request.user).save()
+        return redirect(issue.get_absolute_url())
+
+
+class IssuePinToggleView(mixins.ProjectAccessCheckMixin, generic.DetailView):
+    model = Issue
+
+    def get(self, request, *args, **kwargs):
+        issue = self.get_object()
+        if not issue.pinned:
+            issue.set_pin(True, self.request.user)
+        else:
+            issue.set_pin(False, self.request.user)
         return redirect(issue.get_absolute_url())

@@ -1,0 +1,11 @@
+<div class="panel panel-primary panel-primary-light indent">
+  <div class="panel-body">
+    {% if pin.pinned %}
+      <span class="glyphicon glyphicon-pushpin text-primary step"></span> Pinned
+    {% else %}
+      <span class="glyphicon glyphicon-pushpin text-danger step"></span> Unpinned
+    {% endif %}
+    by <strong>{{ pin.owner }}</strong>,
+    on {{ pin.create_date }}
+  </div>
+</div>

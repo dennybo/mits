@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load urlfy %}
+{% load markup %}
 
 
 {% block title %}
@@ -12,8 +14,7 @@
     <div class="row">
       <div class="col-sm-12">
         <a href="{{ issue.project.get_absolute_url }}" class="no-underline">
-          <h4 class="header-collapse text-muted text-uppercase">
-            <span class="glyphicon glyphicon-arrow-left step"></span> {{ issue.project }}</h4>
+          <h4 class="header-collapse text-muted text-uppercase">{{ issue.project }}</h4>
         </a>
       </div>
     </div>
@@ -59,7 +60,7 @@
           <div class="panel panel-default">
             {% if issue.description %}
               <div class="panel-body">
-                {{ issue.description|linebreaksbr }}
+                {{ issue.description|urlfy|markdown:'markdown.extensions.fenced_code' }}
               </div>
 
               <div class="panel-footer">
@@ -103,6 +104,12 @@
               {% include 'issues/_state.html' %}
             {% endwith %}
           {% endif %}
+
+          {% if event.pin %}
+            {% with event.pin as pin %}
+              {% include 'issues/_pin.html' %}
+            {% endwith %}
+          {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -124,6 +131,6 @@
       $('#tagsPopover').attr('data-content', tagsPopoverContent.html());
 
       tagsPopoverContent.remove();
-    })
+    });
   </script>
 {% endblock %}

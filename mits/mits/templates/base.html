@@ -12,6 +12,8 @@
   <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
   <link href="{% static 'css/base.css' %}" rel="stylesheet">
 
+  <link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
+
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -58,7 +60,18 @@
 
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'js/autogrow.js' %}"></script>
+
 <script src="{% static 'js/loadform.js' %}"></script>
+
+<script>
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    $('.selectpicker').selectpicker('mobile');
+  }
+
+  $('textarea').autogrow({vertical: true, horizontal: false, flickering: false});
+</script>
 
 {% block script %}{% endblock %}
 

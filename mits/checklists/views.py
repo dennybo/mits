@@ -2,7 +2,6 @@ from django.shortcuts import redirect
 from django.views import generic
 
 from projects.mixins import ProjectMixin, ProjectAccessCheckMixin
-from models import *
 from forms import *
 
 
@@ -22,7 +21,7 @@ class ChecklistDetailView(ProjectMixin, ProjectAccessCheckMixin, generic.DetailV
 
     def get_context_data(self, **kwargs):
         context = super(ChecklistDetailView, self).get_context_data(**kwargs)
-        context['add_issue_form'] = ChecklistAddIssueForm(self.object)
+        context['add_issue_form'] = ChecklistIssuesForm(instance=self.object)
         return context
 
 
@@ -51,11 +50,10 @@ class ChecklistAddIssueView(ProjectMixin, ProjectAccessCheckMixin, generic.Detai
     model = Checklist
 
     def post(self, request, *args, **kwargs):
-        form = ChecklistAddIssueForm(self.get_object(), request.POST)
         checklist = self.get_object()
+        form = ChecklistIssuesForm(request.POST, instance=checklist)
 
         if form.is_valid():
-            issue = form.cleaned_data['issue']
-            checklist.issues.add(issue)
+            form.save()
 
         return redirect(checklist.get_absolute_url())
