@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import *
+from issues.models import *
 
 
 admin.site.register(Issue)

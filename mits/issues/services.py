@@ -1,5 +1,5 @@
 from tags.models import Tag
-from models import *
+from issues.models import *
 
 
 def pack_issue_tags(issue):

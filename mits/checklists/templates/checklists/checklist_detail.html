@@ -75,7 +75,7 @@
                     {% endif %}
                   </div>
 
-                  <div>{{ issue.create_date|date:'d.m.Y h:m' }}</div>
+                  <div>{{ issue.create_date|date:'Y.m.d H:m' }}</div>
                 </div>
               </div>
 
@@ -101,40 +101,5 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            Manage Issues
-          </div>
-
-          <form action="{{ checklist.get_add_issue_url }}" method="post">
-            {% csrf_token %}
-            <table class="table" style="margin: 0">
-              <tbody>
-              <tr>
-                <td width="100%">
-                  <div class="form-group">
-                    <select class="form-control selectpicker" id="id_issue" name="issues"
-                            required multiple data-live-search="true" title="Select issues to add to this checklist...">
-                      {% for issue in add_issue_form.issues.field.queryset.all %}
-                        <option title="#{{ issue.index }}" value="{{ issue.pk }}" {% if issue in add_issue_form.initial.issues %}selected{% endif %}>
-                          #{{ issue.index }}: {{ issue }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                </td>
-
-                <td width="0">
-                  <button type="submit" class="btn btn-block btn-primary"><span
-                      class="glyphicon glyphicon-ok"></span></button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
 {% endblock %}

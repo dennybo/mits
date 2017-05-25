@@ -16,7 +16,7 @@ class Tag(models.Model):
 
     color = RGBColorField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_update_url(self):

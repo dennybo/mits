@@ -15,6 +15,6 @@
 
     <strong>{{ comment.owner.username }}</strong>,
     commented on
-    <i>{{ comment.create_date }}</i>
+    <i>{{ comment.create_date|date:'Y.m.d H:m' }}</i>
   </div>
 {% endblock %}

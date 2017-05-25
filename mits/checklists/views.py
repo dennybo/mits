@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.views import generic
 
 from projects.mixins import ProjectMixin, ProjectAccessCheckMixin
-from forms import *
+from checklists.forms import *
 
 
 class ChecklistListView(ProjectMixin, ProjectAccessCheckMixin, generic.ListView):

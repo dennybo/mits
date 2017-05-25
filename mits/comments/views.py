@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.views import generic
 
 from issues import mixins
-from models import *
-from forms import *
+from comments.models import *
+from comments.forms import *
 
 
 class CommentCreateView(mixins.IssueMixin, generic.CreateView):

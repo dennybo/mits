@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from models import *
+from checklists.models import *
 
 
 admin.site.register(Checklist)

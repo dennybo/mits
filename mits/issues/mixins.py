@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from models import Issue
+from issues.models import Issue
 from projects.mixins import ProjectMixin
 
 

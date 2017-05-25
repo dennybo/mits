@@ -66,13 +66,13 @@
               <div class="panel-footer">
                 <strong>{{ issue.owner.username }}</strong>,
                 issued on
-                <i>{{ issue.create_date }}</i>
+                <i>{{ issue.create_date|date:'Y.m.d H:m' }}</i>
               </div>
             {% else %}
               <div class="panel-body">
                 <strong>{{ issue.owner.username }}</strong>,
                 issued on
-                <i>{{ issue.create_date }}</i>
+                <i>{{ issue.create_date|date:'Y.m.d H:m' }}</i>
               </div>
             {% endif %}
           </div>

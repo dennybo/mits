@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import inlineformset_factory
 
-from models import *
+from projects.models import *
 
 
 class ProjectForm(forms.ModelForm):

@@ -12,7 +12,7 @@ class Project(models.Model):
     # used to assign the last created issue index number.
     issue_index = models.IntegerField(default=1)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_open_issues(self):

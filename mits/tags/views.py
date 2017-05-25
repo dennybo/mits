@@ -1,8 +1,8 @@
 from django.urls import reverse
 from django.views import generic
 
-from models import *
-from forms import *
+from tags.models import *
+from tags.forms import *
 from projects.mixins import *
 
 

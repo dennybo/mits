@@ -11,7 +11,7 @@ class Checklist(models.Model):
 
     issues = models.ManyToManyField('issues.Issue', blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):

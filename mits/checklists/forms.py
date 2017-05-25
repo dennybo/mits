@@ -1,6 +1,6 @@
 from django import forms
 
-from models import *
+from checklists.models import *
 
 
 class ChecklistForm(forms.ModelForm):

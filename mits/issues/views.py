@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.views import generic, View
-import services
+from issues import services
 
-from forms import *
+from issues.forms import *
 from projects import mixins
 from comments.forms import CommentForm
 
@@ -44,7 +44,7 @@ class IssueCreateView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, gener
     form_class = IssueForm
 
     def post(self, request, *args, **kwargs):
-        print request.POST
+        print (request.POST)
         return super(IssueCreateView, self).post(request, *args, **kwargs)
 
     def get_form_kwargs(self):
