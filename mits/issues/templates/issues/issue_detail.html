@@ -31,7 +31,6 @@
         </div>
 
         <h2 class="header-collapse">{{ issue.name }}
-          <small>#{{ issue.index }}</small>
         </h2>
       </div>
     </div>
@@ -66,13 +65,13 @@
               <div class="panel-footer">
                 <strong>{{ issue.owner.username }}</strong>,
                 issued on
-                <i>{{ issue.create_date|date:'Y.m.d H:m' }}</i>
+                <i>{{ issue.create_date|date:'Y.m.d H:i' }}</i>
               </div>
             {% else %}
               <div class="panel-body">
                 <strong>{{ issue.owner.username }}</strong>,
                 issued on
-                <i>{{ issue.create_date|date:'Y.m.d H:m' }}</i>
+                <i>{{ issue.create_date|date:'Y.m.d H:i' }}</i>
               </div>
             {% endif %}
           </div>

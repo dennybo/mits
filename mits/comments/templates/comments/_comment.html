@@ -23,7 +23,7 @@
 
     <span class="glyphicon glyphicon-comment step"></span>
     Comment by <strong>{{ comment.owner.username }}</strong>, on
-    <i>{{ comment.create_date|date:'Y.m.d @ H:m' }}</i>
+    <i>{{ comment.create_date|date:'Y.m.d @ H:i' }}</i>
   </div>
 
   <div class="panel-body">
@@ -41,7 +41,7 @@
 
         <div>
           <span class="glyphicon glyphicon-menu-right step"></span>
-          Reply by <strong>{{ reply.owner }}</strong>, on <i>{{ reply.create_date|date:'Y.m.d @ H:m' }}</i>
+          Reply by <strong>{{ reply.owner }}</strong>, on <i>{{ reply.create_date|date:'Y.m.d @ H:i' }}</i>
         </div>
 
         {{ reply.text|urlfy|markdown:'markdown.extensions.fenced_code'|safe }}

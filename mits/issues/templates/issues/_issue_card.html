@@ -15,7 +15,6 @@
 
     <div>
       <span class="text-primary">{{ issue.name }}</span>
-      <span class="text-muted">#{{ issue.index }}</span>
       {% for tag in issue.tags.all %}
         <span class="label" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
       {% endfor %}
@@ -42,13 +41,12 @@
           {% endif %}
         </div>
 
-        <div>{{ issue.create_date|date:'Y.m.d H:m' }}</div>
+        <div>{{ issue.create_date|date:'Y.m.d H:i' }}</div>
       </div>
     </div>
 
     <div>
       <span class="text-primary">{{ issue.name }}</span>
-      <span class="text-muted">#{{ issue.index }}</span>
     </div>
 
     <div>
