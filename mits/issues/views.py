@@ -121,3 +121,9 @@ class IssuePinToggleView(mixins.ProjectAccessCheckMixin, generic.DetailView):
         else:
             issue.set_pin(False, self.request.user)
         return redirect(issue.get_absolute_url())
+		
+class IssueDeleteView(mixins.ProjectMixin,mixins.ProjectAccessCheckMixin,generic.DeleteView):
+    model = Issue
+
+    def get_success_url(self):
+        return self.get_project().get_issues_url()

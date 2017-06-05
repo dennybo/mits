@@ -13,7 +13,7 @@ class Issue(models.Model):
 
     description = models.TextField(blank=True)
 
-    index = models.IntegerField()
+    index = models.IntegerField(default=1)
 
     tags = models.ManyToManyField('tags.Tag', blank=True)
 
@@ -43,6 +43,9 @@ class Issue(models.Model):
 
     def get_pin_toggle_url(self):
         return reverse('issues:issue_pin_toggle', args=[self.project.pk, self.pk])
+	
+    def get_delete_url(self):
+	    return reverse('issues:issue_delete', args=[self.project.pk, self.pk])
 
     class Meta:
         ordering = ['-index']

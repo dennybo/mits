@@ -55,4 +55,10 @@ urlpatterns = [
         views.IssuePinToggleView.as_view(),
         name='issue_pin_toggle'
     ),
+	
+    url(
+        r'^delete/(?P<pk>\d+)/$',
+        views.IssueDeleteView.as_view(),
+        name='issue_delete'
+    ),
 ]
