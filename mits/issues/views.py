@@ -44,7 +44,7 @@ class IssueCreateView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, gener
     form_class = IssueForm
 
     def post(self, request, *args, **kwargs):
-        print (request.POST)
+        print(request.POST)
         return super(IssueCreateView, self).post(request, *args, **kwargs)
 
     def get_form_kwargs(self):
@@ -121,8 +121,9 @@ class IssuePinToggleView(mixins.ProjectAccessCheckMixin, generic.DetailView):
         else:
             issue.set_pin(False, self.request.user)
         return redirect(issue.get_absolute_url())
-		
-class IssueDeleteView(mixins.ProjectMixin,mixins.ProjectAccessCheckMixin,generic.DeleteView):
+
+
+class IssueDeleteView(mixins.ProjectMixin, mixins.ProjectAccessCheckMixin, generic.DeleteView):
     model = Issue
 
     def get_success_url(self):

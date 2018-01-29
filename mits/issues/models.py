@@ -43,9 +43,9 @@ class Issue(models.Model):
 
     def get_pin_toggle_url(self):
         return reverse('issues:issue_pin_toggle', args=[self.project.pk, self.pk])
-	
+
     def get_delete_url(self):
-	    return reverse('issues:issue_delete', args=[self.project.pk, self.pk])
+        return reverse('issues:issue_delete', args=[self.project.pk, self.pk])
 
     class Meta:
         ordering = ['-index']
